@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Gado+</string>
+    <string name="navigation_drawer_open">Abrir naveção lateral</string>
+    <string name="navigation_drawer_close">Fechar naveção lateral</string>
+    <string name="nav_header_title">Felipe Fogaça</string>
+    <string name="nav_header_subtitle">Fazenda Principal</string>
+    <string name="nav_header_desc">Cabeçalho de navegação</string>
+    <string name="action_settings">Configurações</string>
+
+    <string name="date">Data</string>
+
+    <string name="menu_home">Dashboard</string>
+    <string name="menu_animais">Animais</string>
+    <string name="menu_lotes">Lotes</string>
+    <string name="menu_pesagem">Pesagem</string>
+    <string name="menu_gastos">Gastos</string>
+    <string name="menu_propriedades">Propriedades</string>
+    <string name="menu_configuracoes">Configurações</string>
+</resources>
