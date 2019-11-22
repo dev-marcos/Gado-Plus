@@ -1,17 +1,16 @@
 package br.edu.farol.gadoplus.model;
 
-public class Propriedade extends BaseModel {
+public class Lote extends BaseModel{
 
-    private double hectares;
+    private Propriedade propriedade;
     private String descricao;
 
-
-    public double getHectares() {
-        return hectares;
+    public Propriedade getPropriedade() {
+        return propriedade;
     }
 
-    public void setHectares(double hectares) {
-        this.hectares = hectares;
+    public void setPropriedade(Propriedade propriedade) {
+        this.propriedade = propriedade;
     }
 
     public String getDescricao() {

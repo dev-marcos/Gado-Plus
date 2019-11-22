@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/edit_propriedade_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nome_text_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginEnd="@dimen/input_layout_margin"
+            android:hint="Nome">
+
+            <EditText
+                android:id="@+id/ed_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hectares_text_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginEnd="@dimen/input_layout_margin"
+            android:hint="Hectares">
+
+            <EditText
+                android:id="@+id/ed_hectares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descricao_text_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginEnd="@dimen/input_layout_margin"
+            android:hint="Descrição">
+
+            <EditText
+                android:id="@+id/ed_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:inputType="textMultiLine"
+                android:ems="10"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

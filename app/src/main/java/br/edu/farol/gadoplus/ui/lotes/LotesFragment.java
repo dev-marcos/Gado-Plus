@@ -23,11 +23,11 @@ public class LotesFragment extends Fragment {
         lotesViewModel =
                 ViewModelProviders.of(this).get(LotesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_lotes, container, false);
-        final TextView textView = root.findViewById(R.id.text_lotes);
+        //final TextView textView = root.findViewById(R.id.text_lotes);
         lotesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+               // textView.setText(s);
             }
         });
         return root;

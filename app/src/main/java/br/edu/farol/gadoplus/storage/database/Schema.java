@@ -15,7 +15,7 @@ public class Schema {
         static final String ATIVO = "ativo";
     }
 
-    private static class Propriedade extends BaseTable {
+    static class Propriedade extends BaseTable {
         static final String TABLE = "propriedade";
         static final String NOME = "nome";
         static final String HECTARES = "hectares";

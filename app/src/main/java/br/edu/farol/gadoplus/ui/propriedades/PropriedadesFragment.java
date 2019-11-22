@@ -23,11 +23,11 @@ public class PropriedadesFragment extends Fragment {
         propriedadesViewModel =
                 ViewModelProviders.of(this).get(PropriedadesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_propriedades, container, false);
-        final TextView textView = root.findViewById(R.id.text_propriedades);
+       // final TextView textView = root.findViewById(R.id.text_propriedades);
         propriedadesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+              //  textView.setText(s);
             }
         });
         return root;
