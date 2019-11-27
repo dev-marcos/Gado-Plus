@@ -11,4 +11,5 @@
     <dimen name="input_layout_margin">24dp</dimen>
     <dimen name="button_margin">32dp</dimen>
     <dimen name="textview_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

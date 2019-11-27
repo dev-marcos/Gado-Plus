@@ -3,7 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/salvar"
+        android:id="@+id/action_item_delete"
+        android:icon="@drawable/ic_menu_delete"
+        android:title="Apagar"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_item_edit_save"
         android:title="Salvar"
+        android:icon="@drawable/ic_done"
         app:showAsAction="ifRoom" />
+
 </menu>

@@ -1,10 +1,11 @@
 package br.edu.farol.gadoplus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -22,32 +23,41 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
+import java.util.List;
+
+import br.edu.farol.gadoplus.ui.lotes.LotesAddEditActivity;
 import br.edu.farol.gadoplus.ui.propriedades.PropriedadesAddEditActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    private SharedPreferences settings;
+    public static final String APP_PREFERENCES="gado_plus_settings";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainActivity.this, PropriedadesAddEditActivity.class);
-                startActivity(intent);
+           // Intent i = new Intent(MainActivity.this, ListPropriedadesActivity.class);
+           // Intent i = new Intent(MainActivity.this, LotesAddEditActivity.class);
 
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    //    .setAction("Action", null).show();
+            //startActivity(i);
+            onAddNewPropriedade();
 
             }
         });
@@ -64,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
+
+
     }
 
     @Override
@@ -79,4 +94,10 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void onAddNewPropriedade() {
+        startActivity(new Intent(this, PropriedadesAddEditActivity.class));
+    }
+
+
 }

@@ -5,8 +5,6 @@
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
 
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -15,17 +13,8 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/edit_propriedade_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nome_text_view"
-
+            android:id="@+id/tv_propriedade_nome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/input_layout_margin"
@@ -34,7 +23,7 @@
             android:hint="Nome">
 
             <EditText
-                android:id="@+id/ed_nome"
+                android:id="@+id/et_propriedade_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="" />
@@ -42,8 +31,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/hectares_text_view"
-
+            android:id="@+id/tv_propriedade_hectare"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/input_layout_margin"
@@ -52,7 +40,7 @@
             android:hint="Hectares">
 
             <EditText
-                android:id="@+id/ed_hectares"
+                android:id="@+id/et_propriedade_hectare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
@@ -62,8 +50,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/descricao_text_view"
-
+            android:id="@+id/tv_propriedade_descricao"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/input_layout_margin"
@@ -72,19 +59,16 @@
             android:hint="Descrição">
 
             <EditText
-                android:id="@+id/ed_descricao"
+                android:id="@+id/et_propriedade_descricao"
+                android:lines="8"
+                android:minLines="6"
+                android:maxLines="10"
+                android:gravity="top|left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints=""
-                android:inputType="textMultiLine"
-                android:ems="10"/>
+                android:scrollbars="vertical"
+                android:inputType="textMultiLine" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
     </LinearLayout>
-
 </ScrollView>
