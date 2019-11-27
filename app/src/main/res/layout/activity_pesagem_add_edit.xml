@@ -13,27 +13,8 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tv_lote_nome"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginTop="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Nome">
-
-            <EditText
-                android:id="@+id/et_lote_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
         <TextView
-            android:id="@+id/tv_lote_propriedade"
+            android:id="@+id/tv_pesagem_lote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +24,7 @@
             android:layout_marginEnd="@dimen/input_layout_margin"/>
 
         <Spinner
-            android:id="@+id/spinner_lote_propriedade"
+            android:id="@+id/spinner_pesagem_lote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -53,7 +34,34 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tv_lote_descricao"
+            android:id="@+id/tv_pesagem_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginEnd="@dimen/input_layout_margin"
+            android:hint="Data da pesagem">
+
+            <EditText
+                android:id="@+id/et_pesagem_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+
+                android:inputType="date"
+                android:paddingTop="8dp"
+                android:textColor="@color/colorAccent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_pesagem_descricao"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/input_layout_margin"
@@ -62,7 +70,7 @@
             android:hint="Descrição">
 
             <EditText
-                android:id="@+id/et_lote_descricao"
+                android:id="@+id/et_pesagem_descricao"
                 android:lines="8"
                 android:minLines="6"
                 android:maxLines="10"
