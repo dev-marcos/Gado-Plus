@@ -18,19 +18,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Propriedade"
+            android:text="Lote"
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"/>
 
         <Spinner
             android:id="@+id/spinner_pesagem_lote"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin">
-        </Spinner>
+            android:layout_marginEnd="@dimen/input_layout_margin"></Spinner>
 
 
         <com.google.android.material.textfield.TextInputLayout

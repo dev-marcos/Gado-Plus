@@ -2,16 +2,22 @@ package br.edu.farol.gadoplus.ui.propriedades;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import br.edu.farol.gadoplus.MainActivity;
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.storage.database.AppDatabase;
 import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
+import br.edu.farol.gadoplus.ui.pesagem.PesagemAddEditActivity;
 
 public class PropriedadesAddEditActivity extends AppCompatActivity {
     private EditText inputNome;
@@ -27,12 +33,13 @@ public class PropriedadesAddEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_propriedades_add_edit);
+        setTitle("Cadastrar Propriedade");
         //Toolbar toolbar = findViewById(R.id.edit_propriedade_toolbar);
         //setSupportActionBar(toolbar);
 
-        inputNome = findViewById(R.id.input_propriedade_nome);
-        inputHectares = findViewById(R.id.input_propriedade_hectare);
-        inputDescricao = findViewById(R.id.input_propriedade_descricao);
+        inputNome = findViewById(R.id.et_propriedade_nome);
+        inputHectares = findViewById(R.id.et_propriedade_hectare);
+        inputDescricao = findViewById(R.id.et_propriedade_descricao);
 
         dao = AppDatabase.getInstance(this).propriedadeDao();
         if(getIntent().getExtras()!= null){
@@ -46,6 +53,7 @@ public class PropriedadesAddEditActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

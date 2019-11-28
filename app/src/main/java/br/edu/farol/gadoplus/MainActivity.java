@@ -3,8 +3,17 @@ package br.edu.farol.gadoplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
@@ -23,10 +32,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.ui.lotes.LotesAddEditActivity;
+import br.edu.farol.gadoplus.ui.pesagem.PesagemAddEditActivity;
 import br.edu.farol.gadoplus.ui.propriedades.PropriedadesAddEditActivity;
+import br.edu.farol.gadoplus.ui.propriedades.PropriedadesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences settings;
     public static final String APP_PREFERENCES="gado_plus_settings";
+
+    private PieChart pieChart;
+    private PieData pieData;
+    private PieDataSet pieDataSet;
+    private ArrayList pieEntries;
+    private ArrayList PieEntryLabels;
 
 
 
@@ -53,12 +72,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-           // Intent i = new Intent(MainActivity.this, ListPropriedadesActivity.class);
-           // Intent i = new Intent(MainActivity.this, LotesAddEditActivity.class);
-
-            //startActivity(i);
             onAddNewPropriedade();
-
+            onAddNewLote();
+            onAddNewPesagem();
             }
         });
 
@@ -76,10 +92,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-
-
-
+     /*   pieChart= findViewById(R.id.pieChart);
+        getEntries();
+        pieDataSet = new PieDataSet(pieEntries, "");
+        pieData = new PieData(pieDataSet);
+       // pieChart.setData(pieData);
+      //  pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+      //  pieDataSet.setSliceSpace(2f);
+      //  pieDataSet.setValueTextColor(Color.WHITE);
+      //  pieDataSet.setValueTextSize(10f);
+       // pieDataSet.setSliceSpace(5f);
+*/
     }
+
+    private void getEntries() {
+        pieEntries = new ArrayList<>();
+        pieEntries.add(new PieEntry(2f, 0));
+        pieEntries.add(new PieEntry(4f, 1));
+        pieEntries.add(new PieEntry(6f, 2));
+        pieEntries.add(new PieEntry(8f, 3));
+        pieEntries.add(new PieEntry(7f, 4));
+        pieEntries.add(new PieEntry(3f, 5));
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddNewPropriedade() {
+        startActivity(new Intent(this, PropriedadesAddEditActivity.class));
+    }
+
+    private void onAddNewLote() {
+        startActivity(new Intent(this, LotesAddEditActivity.class));
+    }
+
+    private void onAddNewPesagem() {
         startActivity(new Intent(this, PropriedadesAddEditActivity.class));
     }
 
