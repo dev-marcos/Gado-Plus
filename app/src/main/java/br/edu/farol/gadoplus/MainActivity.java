@@ -36,6 +36,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.farol.gadoplus.ui.animais.AnimaisAddEditActivity;
 import br.edu.farol.gadoplus.ui.lotes.LotesAddEditActivity;
 import br.edu.farol.gadoplus.ui.pesagem.PesagemAddEditActivity;
 import br.edu.farol.gadoplus.ui.propriedades.PropriedadesAddEditActivity;
@@ -72,9 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            onAddNewPropriedade();
-            onAddNewLote();
-            onAddNewPesagem();
+           // onAddNewPropriedade();
+           // onAddNewLote();
+           // onAddNewPesagem();
+
+                startActivity(new Intent(MainActivity.this, AnimaisAddEditActivity.class));
+
             }
         });
 

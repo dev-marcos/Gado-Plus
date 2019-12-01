@@ -20,6 +20,9 @@ public interface PropriedadeDao {
     @Delete
     void delete(Propriedade propriedade);
 
+    @Query("DELETE FROM propriedade")
+    void deleteAll();
+
     @Update
     void update(Propriedade propriedade);
 
@@ -27,6 +30,6 @@ public interface PropriedadeDao {
     Propriedade getById(int noteId);
 
     @Query("SELECT * from propriedade ORDER BY nome ASC")
-    List<Propriedade> getAll();
+    LiveData<List<Propriedade>> getAll();
 
 }

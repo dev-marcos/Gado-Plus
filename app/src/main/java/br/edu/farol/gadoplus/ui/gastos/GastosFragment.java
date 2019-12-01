@@ -20,8 +20,8 @@ public class GastosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        gastosViewModel =
-                ViewModelProviders.of(this).get(GastosViewModel.class);
+        gastosViewModel = ViewModelProviders.of(this).get(GastosViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_gastos, container, false);
         final TextView textView = root.findViewById(R.id.text_gastos);
         gastosViewModel.getText().observe(this, new Observer<String>() {
