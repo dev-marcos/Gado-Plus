@@ -1,5 +1,6 @@
 package br.edu.farol.gadoplus.storage.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -29,6 +30,6 @@ public interface PropriedadeDao {
     Propriedade getById(int Id);
 
     @Query("SELECT * from propriedade")
-    List<Propriedade> getAll();
+    LiveData<List<Propriedade>> getAll();
 
 }

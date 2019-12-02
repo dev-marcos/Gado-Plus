@@ -56,14 +56,41 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DATABSE_NAME = "database.db";
 
-    private static AppDatabase INSTANCE;
+    private static AppDatabase instance;
 
-    public static AppDatabase getInstance(Context context) {
-        if (INSTANCE == null)
-            INSTANCE = Room.databaseBuilder(context, AppDatabase.class, DATABSE_NAME)
-                    .allowMainThreadQueries()
+    public static synchronized AppDatabase getInstance(Context context) {
+        if (instance == null)
+            instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DATABSE_NAME)
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
-        return INSTANCE;
+        return instance;
+    }
+
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private PropriedadeDao propriedadeDao;
+        private RacaDao racaDao;
+
+        private PopulateDbAsyncTask(AppDatabase db) {
+            propriedadeDao = db.propriedadeDao();
+            racaDao = db.racaDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            propriedadeDao.insert(new Propriedade("Title 1", 12,"Description 1"));
+            propriedadeDao.insert(new Propriedade("Title 2", 23,"Description 2"));
+            propriedadeDao.insert(new Propriedade("Title 3", 45,"Description 3"));
+            return null;
+        }
     }
 }
 

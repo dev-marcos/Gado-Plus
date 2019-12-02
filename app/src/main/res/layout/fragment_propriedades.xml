@@ -6,8 +6,20 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/recyclerview_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_propriedade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -68,20 +69,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+       /* FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-           // onAddNewPropriedade();
+            onAddNewPropriedade();
            // onAddNewLote();
            // onAddNewPesagem();
 
-                startActivity(new Intent(MainActivity.this, AnimaisAddEditActivity.class));
+            ///    startActivity(new Intent(MainActivity.this, AnimaisAddEditActivity.class));
 
             }
         });
-
+*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -96,17 +97,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-     /*   pieChart= findViewById(R.id.pieChart);
-        getEntries();
-        pieDataSet = new PieDataSet(pieEntries, "");
-        pieData = new PieData(pieDataSet);
-       // pieChart.setData(pieData);
-      //  pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-      //  pieDataSet.setSliceSpace(2f);
-      //  pieDataSet.setValueTextColor(Color.WHITE);
-      //  pieDataSet.setValueTextSize(10f);
-       // pieDataSet.setSliceSpace(5f);
-*/
     }
 
     private void getEntries() {

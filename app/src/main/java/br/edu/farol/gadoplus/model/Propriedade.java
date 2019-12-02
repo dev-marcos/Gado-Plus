@@ -15,6 +15,14 @@ public class Propriedade {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
+    public Propriedade(String nome, double hectares, String descricao){
+        setNome(nome);
+        setHectares(hectares);
+        setDescricao(descricao);
+    }
+
+    public Propriedade(){}
+
     public int getId() {
         return id;
     }

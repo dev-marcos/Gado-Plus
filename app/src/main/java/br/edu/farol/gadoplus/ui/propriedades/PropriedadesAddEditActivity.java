@@ -5,104 +5,121 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import br.edu.farol.gadoplus.MainActivity;
 import br.edu.farol.gadoplus.R;
-import br.edu.farol.gadoplus.model.Propriedade;
-import br.edu.farol.gadoplus.storage.database.AppDatabase;
-import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
-import br.edu.farol.gadoplus.ui.pesagem.PesagemAddEditActivity;
 
 public class PropriedadesAddEditActivity extends AppCompatActivity {
-    private EditText inputNome;
-    private EditText inputHectares;
-    private EditText inputDescricao;
+    public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.propriedades.EXTRA_ID";
+    public static final String EXTRA_NOME="br.edu.farol.gadoplus.ui.propriedades.EXTRA_NOME";
+    public static final String EXTRA_HECTARES="br.edu.farol.gadoplus.ui.propriedades.EXTRA_HECTARES";
+    public static final String EXTRA_DESCRICAO="br.edu.farol.gadoplus.ui.propriedades.EXTRA_DESCRICAO";
 
 
-    private PropriedadeDao dao;
-    private Propriedade temp;
+    private EditText editTextNome;
+    private EditText editTextHectares;
+    private EditText editTextDescricao;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_propriedades_add_edit);
-        setTitle("Cadastrar Propriedade");
-        //Toolbar toolbar = findViewById(R.id.edit_propriedade_toolbar);
-        //setSupportActionBar(toolbar);
 
-        inputNome = findViewById(R.id.et_propriedade_nome);
-        inputHectares = findViewById(R.id.et_propriedade_hectare);
-        inputDescricao = findViewById(R.id.et_propriedade_descricao);
 
-        dao = AppDatabase.getInstance(this).propriedadeDao();
-        if(getIntent().getExtras()!= null){
-            int id = getIntent().getExtras().getInt("id",0);
-            temp = dao.getById(id);
-            inputNome.setText(temp.getNome());
-            inputHectares.setText(String.valueOf(temp.getHectares()));
-            inputDescricao.setText(temp.getDescricao());
+        editTextNome = findViewById(R.id.et_propriedade_nome);
+        editTextHectares = findViewById(R.id.et_propriedade_hectare);
+        editTextDescricao = findViewById(R.id.et_propriedade_descricao);
 
-        }else inputNome.setFocusable(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
+        Intent intent = getIntent();
+
+
+
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Editar");
+            editTextNome.setText(intent.getStringExtra(EXTRA_NOME));
+            editTextHectares.setText(String.valueOf(intent.getDoubleExtra(EXTRA_HECTARES,0)));
+            editTextDescricao.setText(intent.getStringExtra(EXTRA_DESCRICAO));
+        } else {
+            setTitle("Cadastar");
+        }
 
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_edit, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_edit, menu);
+        MenuItem itemDelete = menu.findItem(R.id.action_item_delete);
+
+        itemDelete.setVisible(getIntent().hasExtra(EXTRA_ID));
+
+
+
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_item_edit_save)
-            onSavePropriedades();
 
-        if (id == R.id.action_item_delete)
-            onDeletePropriedades();
+        switch (item.getItemId()) {
+            case R.id.action_item_edit_save:
+                onSavePropriedades();
+                return true;
+            case R.id.action_item_delete:
+                onDeletePropriedades();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
+        }
+
     }
 
     private void onSavePropriedades() {
-     /*   String nome = inputNome.getText().toString();
-        double hectare = new Double(inputHectares.getText().toString());
-        String descricao = inputDescricao.getText().toString();
-        if (!nome.isEmpty()) {
-            // se não exite cria um novo
-            if (temp == null) {
-                temp = new Propriedade();
-                temp.setDescricao(nome);
-                temp.setHectares(hectare);
-                temp.setDescricao(descricao);
-                dao.insert(temp);*/
-                Toast.makeText(getApplicationContext(), "Registro inserido!", Toast.LENGTH_SHORT).show();
-         /*   } else {
-                temp.setDescricao(nome);
-                temp.setHectares(hectare);
-                temp.setDescricao(descricao);
-                dao.update(temp);
-                Toast.makeText(getApplicationContext(), "Registro alterado!", Toast.LENGTH_SHORT).show();
+        String nome = editTextNome.getText().toString();
+        double hectare =0;
+
+        if (!editTextHectares.getText().toString().trim().isEmpty())
+            hectare = Double.parseDouble(editTextHectares.getText().toString());
+
+        String descricao = editTextDescricao.getText().toString();
+
+
+        if (nome.trim().isEmpty() || descricao.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent data = new Intent();
+            data.putExtra(EXTRA_NOME, nome);
+            data.putExtra(EXTRA_HECTARES, hectare);
+            data.putExtra(EXTRA_DESCRICAO, descricao);
+
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id != -1) {
+                data.putExtra(EXTRA_ID, id);
             }
 
-*/
-
-            finish(); // retorna para Activity Principal
-    //    }
-
+            setResult(RESULT_OK, data);
+            finish();
+        }
     }
 
     private void onDeletePropriedades() {
-        Toast.makeText(getApplicationContext(), "Deletado com sucesso!", Toast.LENGTH_SHORT).show();
-        finish();
+        Intent data = new Intent();
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+
+        if (id != -1) {
+            data.putExtra(EXTRA_ID, id);
+            setResult(PropriedadesFragment.DELETE_REQUEST, data);
+            finish();
+        }
     }
 }

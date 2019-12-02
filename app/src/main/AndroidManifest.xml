@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.animais.AnimaisAddEditActivity"></activity>
+        <activity android:name=".ui.animais.AnimaisAddEditActivity" />
         <activity android:name=".ui.pesagem.PesagemAddEditActivity" />
         <activity android:name=".ui.propriedades.PropriedadesAddEditActivity" />
         <activity android:name=".ui.lotes.LotesAddEditActivity" />
@@ -22,6 +22,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
