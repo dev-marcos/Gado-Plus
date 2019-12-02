@@ -1,30 +1,22 @@
-package br.edu.farol.gadoplus.ui.propriedades;
+package br.edu.farol.gadoplus.ui.propriedade;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Propriedade;
-import br.edu.farol.gadoplus.storage.database.AppDatabase;
-import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
 import br.edu.farol.gadoplus.storage.database.repository.PropriedadeRepository;
 
-public class PropriedadesViewModel extends AndroidViewModel {
+public class PropriedadeViewModel extends AndroidViewModel {
 
     private PropriedadeRepository repository;
     private LiveData<List<Propriedade>> allPropriedades;
 
-    public PropriedadesViewModel(@NonNull Application application) {
+    public PropriedadeViewModel(@NonNull Application application) {
         super(application);
         repository = new PropriedadeRepository(application);
         allPropriedades = repository.getAll();

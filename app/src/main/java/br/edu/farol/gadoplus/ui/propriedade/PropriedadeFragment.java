@@ -1,4 +1,4 @@
-package br.edu.farol.gadoplus.ui.propriedades;
+package br.edu.farol.gadoplus.ui.propriedade;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,13 +22,13 @@ import br.edu.farol.gadoplus.adapter.PropriedadeAdapter;
 import br.edu.farol.gadoplus.model.Propriedade;
 
 
-public class PropriedadesFragment extends Fragment {
+public class PropriedadeFragment extends Fragment {
     public static final int ADD_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
     public static final int DELETE_REQUEST = 3;
 
 
-    private PropriedadesViewModel propriedadesViewModel;
+    private PropriedadeViewModel propriedadeViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,8 +43,8 @@ public class PropriedadesFragment extends Fragment {
         final PropriedadeAdapter adapter = new PropriedadeAdapter();
         recyclerView.setAdapter(adapter);
 
-        propriedadesViewModel = ViewModelProviders.of(this).get(PropriedadesViewModel.class);
-        propriedadesViewModel.getAll().observe(this, new Observer<List<Propriedade>>() {
+        propriedadeViewModel = ViewModelProviders.of(this).get(PropriedadeViewModel.class);
+        propriedadeViewModel.getAll().observe(this, new Observer<List<Propriedade>>() {
             @Override
             public void onChanged(@Nullable List<Propriedade> propriedades) {
                 adapter.setPropriedade(propriedades);
@@ -55,7 +55,7 @@ public class PropriedadesFragment extends Fragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), PropriedadesAddEditActivity.class);
+                Intent intent = new Intent(getContext(), PropriedadeAddEditActivity.class);
                 startActivityForResult(intent, ADD_REQUEST);
             }
         });
@@ -63,11 +63,11 @@ public class PropriedadesFragment extends Fragment {
         adapter.setOnClickListener(new PropriedadeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Propriedade propriedade) {
-                Intent intent = new Intent(getContext(), PropriedadesAddEditActivity.class);
-                intent.putExtra(PropriedadesAddEditActivity.EXTRA_ID, propriedade.getId());
-                intent.putExtra(PropriedadesAddEditActivity.EXTRA_NOME, propriedade.getNome());
-                intent.putExtra(PropriedadesAddEditActivity.EXTRA_HECTARES, propriedade.getHectares());
-                intent.putExtra(PropriedadesAddEditActivity.EXTRA_DESCRICAO, propriedade.getDescricao());
+                Intent intent = new Intent(getContext(), PropriedadeAddEditActivity.class);
+                intent.putExtra(PropriedadeAddEditActivity.EXTRA_ID, propriedade.getId());
+                intent.putExtra(PropriedadeAddEditActivity.EXTRA_NOME, propriedade.getNome());
+                intent.putExtra(PropriedadeAddEditActivity.EXTRA_HECTARES, propriedade.getHectares());
+                intent.putExtra(PropriedadeAddEditActivity.EXTRA_DESCRICAO, propriedade.getDescricao());
                 startActivityForResult(intent, EDIT_REQUEST);
             }
         });
@@ -80,34 +80,34 @@ public class PropriedadesFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_REQUEST && resultCode == Activity.RESULT_OK) {
-            String nome = data.getStringExtra(PropriedadesAddEditActivity.EXTRA_NOME);
-            double hectares = data.getDoubleExtra(PropriedadesAddEditActivity.EXTRA_HECTARES, 0);
-            String descricao = data.getStringExtra(PropriedadesAddEditActivity.EXTRA_DESCRICAO);
+            String nome = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_NOME);
+            double hectares = data.getDoubleExtra(PropriedadeAddEditActivity.EXTRA_HECTARES, 0);
+            String descricao = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_DESCRICAO);
 
             Propriedade propriedade = new Propriedade(nome, hectares, descricao);
-            propriedadesViewModel.insert(propriedade);
+            propriedadeViewModel.insert(propriedade);
 
             Toast.makeText(getContext(), "Registro salvo", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_REQUEST && resultCode == Activity.RESULT_OK) {
-            int id = data.getIntExtra(PropriedadesAddEditActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(PropriedadeAddEditActivity.EXTRA_ID, -1);
 
             if (id == -1) {
                 Toast.makeText(getContext(), "Não é possível salvar!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            String nome = data.getStringExtra(PropriedadesAddEditActivity.EXTRA_NOME);
-            double hectares = data.getDoubleExtra(PropriedadesAddEditActivity.EXTRA_HECTARES, 0);
-            String descricao = data.getStringExtra(PropriedadesAddEditActivity.EXTRA_DESCRICAO);
+            String nome = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_NOME);
+            double hectares = data.getDoubleExtra(PropriedadeAddEditActivity.EXTRA_HECTARES, 0);
+            String descricao = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_DESCRICAO);
 
             Propriedade propriedade = new Propriedade(nome, hectares, descricao);
             propriedade.setId(id);
-            propriedadesViewModel.update(propriedade);
+            propriedadeViewModel.update(propriedade);
 
             Toast.makeText(getContext(), "Registro atualizado", Toast.LENGTH_SHORT).show();
-        } else if (resultCode == PropriedadesFragment.DELETE_REQUEST) {
+        } else if (resultCode == PropriedadeFragment.DELETE_REQUEST) {
 
-            int id = data.getIntExtra(PropriedadesAddEditActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(PropriedadeAddEditActivity.EXTRA_ID, -1);
 
             if (id == -1) {
                 Toast.makeText(getContext(), "Não é possivel deletar!", Toast.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class PropriedadesFragment extends Fragment {
 
             Propriedade propriedade = new Propriedade();
             propriedade.setId(id);
-            propriedadesViewModel.delete(propriedade);
+            propriedadeViewModel.delete(propriedade);
 
             Toast.makeText(getContext(), "Registro atualizado", Toast.LENGTH_SHORT).show();
         }

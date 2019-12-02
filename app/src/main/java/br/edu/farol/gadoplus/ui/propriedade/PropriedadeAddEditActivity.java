@@ -1,4 +1,4 @@
-package br.edu.farol.gadoplus.ui.propriedades;
+package br.edu.farol.gadoplus.ui.propriedade;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import br.edu.farol.gadoplus.R;
 
-public class PropriedadesAddEditActivity extends AppCompatActivity {
+public class PropriedadeAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.propriedades.EXTRA_ID";
     public static final String EXTRA_NOME="br.edu.farol.gadoplus.ui.propriedades.EXTRA_NOME";
     public static final String EXTRA_HECTARES="br.edu.farol.gadoplus.ui.propriedades.EXTRA_HECTARES";
@@ -118,7 +118,7 @@ public class PropriedadesAddEditActivity extends AppCompatActivity {
 
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);
-            setResult(PropriedadesFragment.DELETE_REQUEST, data);
+            setResult(PropriedadeFragment.DELETE_REQUEST, data);
             finish();
         }
     }

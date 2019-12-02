@@ -3,21 +3,12 @@ package br.edu.farol.gadoplus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import android.preference.PreferenceManager;
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,15 +24,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-import br.edu.farol.gadoplus.ui.animais.AnimaisAddEditActivity;
 import br.edu.farol.gadoplus.ui.lotes.LotesAddEditActivity;
-import br.edu.farol.gadoplus.ui.pesagem.PesagemAddEditActivity;
-import br.edu.farol.gadoplus.ui.propriedades.PropriedadesAddEditActivity;
-import br.edu.farol.gadoplus.ui.propriedades.PropriedadesFragment;
+import br.edu.farol.gadoplus.ui.propriedade.PropriedadeAddEditActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddNewPropriedade() {
-        startActivity(new Intent(this, PropriedadesAddEditActivity.class));
+        startActivity(new Intent(this, PropriedadeAddEditActivity.class));
     }
 
     private void onAddNewLote() {
@@ -133,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAddNewPesagem() {
-        startActivity(new Intent(this, PropriedadesAddEditActivity.class));
+        startActivity(new Intent(this, PropriedadeAddEditActivity.class));
     }
 
 
