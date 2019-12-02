@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Application;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import java.util.List;
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.adapter.PropriedadeAdapter;
 import br.edu.farol.gadoplus.model.Propriedade;
+import br.edu.farol.gadoplus.storage.database.AppDatabase;
+import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
 
 
 public class AnimaisAddEditActivity extends AppCompatActivity {
 
+    private PropriedadeDao dao;
 
 
     @Override
@@ -23,13 +27,15 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animais_add_edit);
 
-          RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        dao =  AppDatabase.getInstance(this).propriedadeDao();
 
 
-        Propriedade p = new Propriedade();
+
+      /*  Propriedade p = new Propriedade();
         p.setNome("Teste");
         p.setDescricao("ok");
         p.setHectares(12);
@@ -45,8 +51,8 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         propriedades.add(p);
         propriedades.add(p1);
 
-
-        PropriedadeAdapter adapter = new PropriedadeAdapter(propriedades);
+*/
+        PropriedadeAdapter adapter = new PropriedadeAdapter(dao.getAll());
         recyclerView.setAdapter(adapter);
     }
 

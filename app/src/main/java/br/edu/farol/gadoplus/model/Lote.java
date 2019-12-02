@@ -1,17 +1,19 @@
 package br.edu.farol.gadoplus.model;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "propriedade")
-public class Propriedade {
+@Entity(tableName = "lote")
+public class Lote{
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     @ColumnInfo(name = "nome")
     private String nome;
-    @ColumnInfo(name = "hectares")
-    private double hectares;
+
+    @ColumnInfo(name = "propriedade_id")
+    private int propriedadeId;
+
     @ColumnInfo(name = "descricao")
     private String descricao;
 
@@ -31,12 +33,12 @@ public class Propriedade {
         this.nome = nome;
     }
 
-    public double getHectares() {
-        return hectares;
+    public int getPropriedadeId() {
+        return propriedadeId;
     }
 
-    public void setHectares(double hectares) {
-        this.hectares = hectares;
+    public void setPropriedadeId(int propriedadeId) {
+        this.propriedadeId = propriedadeId;
     }
 
     public String getDescricao() {
@@ -46,6 +48,4 @@ public class Propriedade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-
 }

@@ -7,19 +7,54 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import br.edu.farol.gadoplus.model.Animal;
+import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.Lote;
+import br.edu.farol.gadoplus.model.Pesagem;
+import br.edu.farol.gadoplus.model.PesagemAnimal;
 import br.edu.farol.gadoplus.model.Propriedade;
+import br.edu.farol.gadoplus.model.Raca;
+import br.edu.farol.gadoplus.model.TipoGasto;
+import br.edu.farol.gadoplus.storage.database.dao.AnimalDao;
+import br.edu.farol.gadoplus.storage.database.dao.GastoDao;
+import br.edu.farol.gadoplus.storage.database.dao.LoteDao;
+import br.edu.farol.gadoplus.storage.database.dao.PesagemAnimalDao;
+import br.edu.farol.gadoplus.storage.database.dao.PesagemDao;
 import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
+import br.edu.farol.gadoplus.storage.database.dao.RacaDao;
+import br.edu.farol.gadoplus.storage.database.dao.TipoGastoDao;
 
 
-@Database(entities = {Propriedade.class}, version = 1,exportSchema = false)
+@Database(
+        entities = {
+                Animal.class,
+                Gasto.class,
+                Lote.class,
+                Pesagem.class,
+                PesagemAnimal.class,
+                Propriedade.class,
+                Raca.class,
+                TipoGasto.class
+        },
+        version = 1
+)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
+    public abstract AnimalDao animalDao();
+    public abstract GastoDao gastoDao();
+    public abstract LoteDao loteDao();
+    public abstract PesagemDao pesagemDao();
+    public abstract PesagemAnimalDao pesagemAnimalDao();
     public abstract PropriedadeDao propriedadeDao();
+    public abstract RacaDao racaDao();
+    public abstract TipoGastoDao tipoGastoDao();
 
 
-    public static final String DATABSE_NAME = "database";
+    public static final String DATABSE_NAME = "database.db";
 
     private static AppDatabase INSTANCE;
 
@@ -27,54 +62,8 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null)
             INSTANCE = Room.databaseBuilder(context, AppDatabase.class, DATABSE_NAME)
                     .allowMainThreadQueries()
-                    .addCallback(sRoomDatabaseCallback)
                     .build();
         return INSTANCE;
-    }
-
-    /**
-     * Override the onOpen method to populate the database.
-     * For this sample, we clear the database every time it is created or opened.
-     */
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
-
-        @Override
-        public void onOpen (@NonNull SupportSQLiteDatabase db){
-            super.onOpen(db);
-            // If you want to keep the data through app restarts,
-            // comment out the following line.
-            new PopulateDbAsync(INSTANCE).execute();
-        }
-    };
-
-    /**
-     * Populate the database in the background.
-     * If you want to start with more words, just add them.
-     */
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-
-        private final PropriedadeDao pDao;
-
-        PopulateDbAsync(AppDatabase db) {
-            pDao = db.propriedadeDao();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            pDao.deleteAll();
-
-            Propriedade propriedade = new Propriedade();
-            propriedade.setNome("Nome Teste");
-            propriedade.setDescricao("Descrição Teste");
-            propriedade.setHectares(123.00);
-
-
-
-            pDao.insert(propriedade);
-            return null;
-        }
     }
 }
 
