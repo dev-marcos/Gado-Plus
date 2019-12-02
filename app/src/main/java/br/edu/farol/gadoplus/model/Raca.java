@@ -11,6 +11,11 @@ public class Raca{
     @ColumnInfo(name = "nome")
     private String nome;
 
+    public Raca(String nome){
+        this.nome = nome;
+    }
+
+
     public int getId() {
         return id;
     }

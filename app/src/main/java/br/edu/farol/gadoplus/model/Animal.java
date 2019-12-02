@@ -43,6 +43,22 @@ public class Animal{
     @ColumnInfo(name = "observacoes")
     private String observacoes;
 
+    public Animal(String nome, int loteId, String sexo, Date dtEntrada,
+                  Date dtPrimeiraPesagem, double primeiroPeso, int racaId, double precoCompra,
+                  Date dtNascimento, Date dtDesmame, String observacoes){
+        this.nome = nome;
+        this.loteId = loteId;
+        this.sexo = sexo;
+        this.dtEntrada = dtEntrada;
+        this.dtPrimeiraPesagem = dtPrimeiraPesagem;
+        this.primeiroPeso = primeiroPeso;
+        this.racaId = racaId;
+        this.precoCompra = precoCompra;
+        this.dtNascimento = dtNascimento;
+        this.dtDesmame = dtDesmame;
+        this.observacoes = observacoes;
+    }
+
     public int getId() {
         return id;
     }

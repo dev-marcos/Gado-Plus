@@ -17,6 +17,12 @@ public class Lote{
     @ColumnInfo(name = "descricao")
     private String descricao;
 
+    public Lote(String nome, int propriedadeId, String descricao){
+        this.nome = nome;
+        this.propriedadeId = propriedadeId;
+        this.descricao = descricao;
+    }
+
     public int getId() {
         return id;
     }

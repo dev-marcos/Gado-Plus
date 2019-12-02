@@ -23,6 +23,13 @@ public class Pesagem{
     @ColumnInfo(name = "descricao")
     private String descricao;
 
+    public Pesagem(String nome, int loteId, Date data, String descricao){
+        this.nome = nome;
+        this.loteId = loteId;
+        this.data = data;
+        this.descricao = descricao;
+    }
+
 
     public int getId() {
         return id;

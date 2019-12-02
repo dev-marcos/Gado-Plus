@@ -18,6 +18,12 @@ public class PesagemAnimal {
     @ColumnInfo(name = "peso")
     private double peso;
 
+    public PesagemAnimal(int pesagemId, int animalId, double peso){
+        this.pesagemId = pesagemId;
+        this.animalId = animalId;
+        this.peso = peso;
+    }
+
     public int getId() {
         return id;
     }

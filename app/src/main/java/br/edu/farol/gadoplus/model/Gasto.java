@@ -26,6 +26,14 @@ public class Gasto {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
+    public Gasto(int tipoGastoId, int animalId, Date data, double valor, String descricao){
+        this.tipoGastoId = tipoGastoId;
+        this.animalId = animalId;
+        this.data = data;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
+
     public int getId() {
         return id;
     }

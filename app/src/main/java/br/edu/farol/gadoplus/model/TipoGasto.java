@@ -11,6 +11,10 @@ public class TipoGasto{
     @ColumnInfo(name = "nome")
     private String nome;
 
+    public TipoGasto(String nome){
+        this.nome = nome;
+    }
+
     public int getId() {
         return id;
     }
