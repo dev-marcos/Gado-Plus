@@ -39,6 +39,8 @@ public class AnimaisViewModel extends AndroidViewModel {
         repository.delete(animal);
     }
 
+    public Animal getById(int id){return repository.getById(id);}
+
     public void deleteAll() {
         repository.deleteAll();
     }

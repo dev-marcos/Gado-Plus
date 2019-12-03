@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="Tem muitos Hec"
+            android:text=""
             android:textSize="14sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_alignParentRight="true" />
@@ -33,7 +33,7 @@
             android:layout_toStartOf="@id/text_view_priority"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Titleasdasdasdasdsad"
+            android:text=""
             android:textColor="@color/colorPrimaryDark"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
             android:textColor="@color/colorAccent"
-            android:text="Descriptionasdasdsadsadsadsad" />
+            android:text="" />
 
     </RelativeLayout>
 

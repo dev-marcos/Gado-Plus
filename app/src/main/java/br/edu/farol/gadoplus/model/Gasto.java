@@ -2,6 +2,7 @@ package br.edu.farol.gadoplus.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -32,6 +33,9 @@ public class Gasto {
         this.valor = valor;
         this.descricao = descricao;
     }
+
+    @Ignore
+    public Gasto(){}
 
     public int getId() {
         return id;

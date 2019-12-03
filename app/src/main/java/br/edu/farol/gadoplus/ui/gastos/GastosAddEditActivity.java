@@ -1,6 +1,7 @@
-package br.edu.farol.gadoplus.ui.pesagem;
+package br.edu.farol.gadoplus.ui.gastos;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,40 +11,46 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 import br.edu.farol.gadoplus.R;
 
+public class GastosAddEditActivity extends AppCompatActivity {
+    public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.gastos.EXTRA_ID";
+    public static final String EXTRA_TIPO_GASTO_ID="br.edu.farol.gadoplus.ui.gastos.EXTRA_TIPO_GASTO_ID";
+    public static final String EXTRA_ANIMAL_ID="br.edu.farol.gadoplus.ui.gastos.EXTRA_ANIMAL_ID";
+    public static final String EXTRA_DATA="br.edu.farol.gadoplus.ui.gastos.EXTRA_DATA";
+    public static final String EXTRA_VALOR="br.edu.farol.gadoplus.ui.gastos.EXTRA_VALOR";
+    public static final String EXTRA_DESCRICAO="br.edu.farol.gadoplus.ui.gastos.EXTRA_DESCRICAO";
 
-public class PesagemAddEditActivity extends AppCompatActivity {
-    public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.lotes.EXTRA_ID";
-    public static final String EXTRA_LOTE_ID="br.edu.farol.gadoplus.ui.lotes.EXTRA_LOTE_ID";
-    public static final String EXTRA_DATA="br.edu.farol.gadoplus.ui.lotes.EXTRA_DATA";
-    public static final String EXTRA_DESCRICAO="br.edu.farol.gadoplus.ui.lotes.EXTRA_DESCRICAO";
 
-
-    private Spinner  spinnerLote;
+    private Spinner  spinnerTipoGasto;
+    private Spinner  spinnerAnimal;
     private EditText editTextData;
+    private EditText editTextValor;
     private EditText editTextDescricao;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pesagem_add_edit);
-
+        setContentView(R.layout.activity_gastos_add_edit);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
-        spinnerLote       = findViewById(R.id.spinner_pesagem_lote);
-        editTextData      = findViewById(R.id.et_pesagem_data);
-        editTextDescricao = findViewById(R.id.et_pesagem_descricao);
+
+        spinnerTipoGasto = findViewById(R.id.spinner_gastos_tipo);
+        spinnerAnimal = findViewById(R.id.spinner_gastos_animal);
+        editTextData = findViewById(R.id.et_gastos_data);
+        editTextValor = findViewById(R.id.et_gastos_valor);
+        editTextDescricao = findViewById(R.id.et_gastos_descricao);
 
 
         Intent intent = getIntent();
 
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar");
+
+           //spinnerTipoGasto.setText(intent.getStringExtra(EXTRA_TIPO_GASTO_ID));
+            //spinnerAnimal.setText(intent.getStringExtra(EXTRA_ANIMAL_ID));
             editTextData.setText(intent.getStringExtra(EXTRA_DATA));
-            // spinnerLote.setText(intent.getStringExtra(EXTRA_LOTE_ID));
+            editTextValor.setText(intent.getStringExtra(EXTRA_VALOR));
             editTextDescricao.setText(intent.getStringExtra(EXTRA_DESCRICAO));
 
         } else {
@@ -75,24 +82,28 @@ public class PesagemAddEditActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     private void onSave() {
 
-        int loteId = 1;
+        int gastoId = 1;
+        int animalId = 1;
 
         String sData = editTextData.getText().toString();
-        String descricao =  editTextDescricao.getText().toString();
+        double valor = editTextValor.getText().toString().trim().isEmpty()? 0: Double.parseDouble(editTextValor.getText().toString());
+        String descricao = editTextDescricao.getText().toString();
 
-        if (sData.trim().isEmpty() || descricao.trim().isEmpty()) {
+
+        if (!(gastoId > 0) || sData.trim().isEmpty()|| !(valor > 0) || descricao.trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
 
             Intent data = new Intent();
 
-            data.putExtra(EXTRA_LOTE_ID, loteId);
+            data.putExtra(EXTRA_TIPO_GASTO_ID, gastoId);
+            data.putExtra(EXTRA_ANIMAL_ID, animalId);
             data.putExtra(EXTRA_DATA, sData);
+            data.putExtra(EXTRA_VALOR, valor);
             data.putExtra(EXTRA_DESCRICAO, descricao);
 
             int id = getIntent().getIntExtra(EXTRA_ID, -1);
@@ -111,10 +122,9 @@ public class PesagemAddEditActivity extends AppCompatActivity {
 
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);
-            setResult(PesagemFragment.DELETE_REQUEST, data);
+            setResult(GastosFragment.DELETE_REQUEST, data);
             finish();
         }
     }
-
 
 }

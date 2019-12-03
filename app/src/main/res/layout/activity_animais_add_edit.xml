@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/input_layout_margin"
-                    android:text="Femea" />
+                    android:text="Fêmea" />
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,7 +131,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Data Primeiro Peso">
+            android:hint="Data Primeira Pesagem">
 
             <EditText
                 android:id="@+id/et_animais_dt_primeira_pesagem"

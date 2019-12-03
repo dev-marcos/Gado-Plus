@@ -41,6 +41,8 @@ public class PropriedadeRepository {
         return allPropriedades;
     }
 
+    public Propriedade getById(int id){ return propriedadeDao.getById(id);}
+
     private static class InsertPropriedadeAsyncTask extends AsyncTask<Propriedade, Void, Void> {
         private PropriedadeDao propriedadeDao;
 

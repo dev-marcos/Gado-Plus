@@ -1,6 +1,7 @@
 package br.edu.farol.gadoplus.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "lote")
@@ -22,6 +23,8 @@ public class Lote{
         this.propriedadeId = propriedadeId;
         this.descricao = descricao;
     }
+    @Ignore
+    public Lote(){}
 
     public int getId() {
         return id;

@@ -39,6 +39,8 @@ public class PropriedadeViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
+    public Propriedade getById(int id){return repository.getById(id);}
+
     public LiveData<List<Propriedade>> getAll() {
         return allPropriedades;
     }

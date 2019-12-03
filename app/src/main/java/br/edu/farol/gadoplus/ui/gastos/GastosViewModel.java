@@ -43,6 +43,8 @@ public class GastosViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
+    public Gasto getById(int id){return repository.getById(id);}
+
     public LiveData<List<Gasto>> getAll() {
         return allGastos;
     }

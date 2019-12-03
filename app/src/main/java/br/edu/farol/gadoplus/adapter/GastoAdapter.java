@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class GastoAdapter extends RecyclerView.Adapter<GastoAdapter.GastoViewHol
 
     private List<Gasto> gastos;
     private OnItemClickListener listener;
+    DecimalFormat df = new DecimalFormat("#,###.00");
 
     @Override
     public GastoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,9 +33,9 @@ public class GastoAdapter extends RecyclerView.Adapter<GastoAdapter.GastoViewHol
     @Override
     public void onBindViewHolder(GastoViewHolder viewHolder, int i) {
 
-    //    viewHolder.nome.setText(gastos.get(i).getNome());
-    //    viewHolder.descricao.setText(gastos.get(i).getDescricao());
-     //   viewHolder.hectares.setText(String.valueOf(gastos.get(i).getHectares()) + " hec");
+        viewHolder.valor.setText("R$ " + String.valueOf(df.format(gastos.get(i).getValor())));
+        viewHolder.descricao.setText(gastos.get(i).getDescricao());
+        viewHolder.data.setText(gastos.get(i).getData());
 
     }
 
@@ -51,15 +53,14 @@ public class GastoAdapter extends RecyclerView.Adapter<GastoAdapter.GastoViewHol
 
     class GastoViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nome, descricao, hectares;
+        private TextView valor, descricao, data;
 
         public GastoViewHolder(View itemView) {
             super(itemView);
-            nome = itemView.findViewById(R.id.text_view_title);
+            valor = itemView.findViewById(R.id.text_view_title);
             descricao = itemView.findViewById(R.id.text_view_description);
-            hectares = itemView.findViewById(R.id.text_view_priority);
+            data = itemView.findViewById(R.id.text_view_priority);
 
-            //itemView.setOnClickListener((View.OnClickListener) this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,10 +80,6 @@ public class GastoAdapter extends RecyclerView.Adapter<GastoAdapter.GastoViewHol
         this.listener = listener;
     }
 
-
-    // public GastoAdapter(List<Gasto> gastos) {
-    //   this.gastos = gastos;
-    //}
 
 
 }

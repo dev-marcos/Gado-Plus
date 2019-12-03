@@ -60,7 +60,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             observacoes = itemView.findViewById(R.id.text_view_description);
             dtEntrada = itemView.findViewById(R.id.text_view_priority);
 
-            //itemView.setOnClickListener((View.OnClickListener) this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,11 +78,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     public void setOnClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-
-    // public AnimalAdapter(List<Animal> animals) {
-    //   this.animals = animals;
-    //}
 
 
 }

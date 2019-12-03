@@ -1,19 +1,12 @@
 package br.edu.farol.gadoplus.ui.pesagem;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import java.util.List;
-
 import br.edu.farol.gadoplus.model.Pesagem;
-import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.storage.database.repository.PesagemRepository;
-import br.edu.farol.gadoplus.storage.database.repository.PropriedadeRepository;
 
 public class PesagemViewModel extends AndroidViewModel {
 
@@ -42,6 +35,8 @@ public class PesagemViewModel extends AndroidViewModel {
     public void deleteAll() {
         repository.deleteAll();
     }
+
+    public Pesagem getById(int id){return repository.getById(id);}
 
     public LiveData<List<Pesagem>> getAll() {
         return allPesagens;

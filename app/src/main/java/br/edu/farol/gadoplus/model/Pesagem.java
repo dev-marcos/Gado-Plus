@@ -2,6 +2,7 @@ package br.edu.farol.gadoplus.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -9,9 +10,6 @@ import androidx.room.PrimaryKey;
 public class Pesagem{
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-    @ColumnInfo(name = "nome")
-    private String nome;
 
     @ColumnInfo(name = "lote_id")
     private int loteId;
@@ -22,12 +20,14 @@ public class Pesagem{
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    public Pesagem(String nome, int loteId, String data, String descricao){
-        this.nome = nome;
+    public Pesagem(int loteId, String data, String descricao){
         this.loteId = loteId;
         this.data = data;
         this.descricao = descricao;
     }
+
+    @Ignore
+    public Pesagem(){}
 
 
     public int getId() {
@@ -36,14 +36,6 @@ public class Pesagem{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public int getLoteId() {

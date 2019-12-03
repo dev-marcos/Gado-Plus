@@ -41,6 +41,8 @@ public class GastoRepository {
         return allGastos;
     }
 
+    public Gasto getById(int id){ return gastoDao.getById(id);}
+
     private static class InsertGastoAsyncTask extends AsyncTask<Gasto, Void, Void> {
         private GastoDao gastoDao;
 

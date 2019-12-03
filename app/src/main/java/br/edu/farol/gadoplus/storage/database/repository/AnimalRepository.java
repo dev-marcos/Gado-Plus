@@ -41,6 +41,8 @@ public class AnimalRepository {
         return allAnimals;
     }
 
+    public Animal getById(int id){ return animalDao.getById(id);}
+
     private static class InsertAnimalAsyncTask extends AsyncTask<Animal, Void, Void> {
         private AnimalDao animalDao;
 

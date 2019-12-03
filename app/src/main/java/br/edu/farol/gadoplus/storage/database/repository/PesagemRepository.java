@@ -41,6 +41,8 @@ public class PesagemRepository {
         return allPesagens;
     }
 
+    public Pesagem getById(int id){ return pesagemDao.getById(id);}
+
     private static class InsertPesagemAsyncTask extends AsyncTask<Pesagem, Void, Void> {
         private PesagemDao pesagemDao;
 

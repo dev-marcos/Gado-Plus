@@ -41,6 +41,8 @@ public class LoteRepository {
         return allLotes;
     }
 
+    public Lote getById(int id){ return loteDao.getById(id);}
+
     private static class InsertLoteAsyncTask extends AsyncTask<Lote, Void, Void> {
         private LoteDao loteDao;
 

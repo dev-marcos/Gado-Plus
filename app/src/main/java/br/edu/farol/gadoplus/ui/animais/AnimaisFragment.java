@@ -43,7 +43,6 @@ public class AnimaisFragment extends Fragment {
         animaisViewModel = ViewModelProviders.of(this).get(AnimaisViewModel.class);
         View root = inflater.inflate(R.layout.fragment_animais, container, false);
 
-
         final RecyclerView recyclerView = root.findViewById(R.id.rv_animais);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -114,7 +113,7 @@ public class AnimaisFragment extends Fragment {
             animal.setPrimeiroPeso(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRIMEIRO_PESO, 0));
             animal.setRacaId(data.getIntExtra(AnimaisAddEditActivity.EXTRA_RACA_ID,0));
             animal.setPrecoCompra(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRECO_COMPRA,0));
-            animal.setDtEntrada(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_NASCIMENTO));
+            animal.setDtNascimento(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_NASCIMENTO));
             animal.setDtDesmame(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_DESMAME));
             animal.setObservacoes(data.getStringExtra(AnimaisAddEditActivity.EXTRA_OBSERVACOES));
 

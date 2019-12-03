@@ -13,17 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.Lote;
 import br.edu.farol.gadoplus.model.Pesagem;
+import br.edu.farol.gadoplus.storage.database.AppDatabase;
+import br.edu.farol.gadoplus.storage.database.repository.LoteRepository;
+import br.edu.farol.gadoplus.ui.lotes.LotesViewModel;
 
 public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemViewHolder> {
 
     private List<Pesagem> pesagems;
     private OnItemClickListener listener;
+    private LotesViewModel LoteViewModel;
 
     @Override
     public PesagemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
+
+
         return new PesagemViewHolder(itemView);
     }
 
@@ -31,9 +38,12 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
     @Override
     public void onBindViewHolder(PesagemViewHolder viewHolder, int i) {
 
-    //    viewHolder.nome.setText(pesagems.get(i).getNome());
-     //   viewHolder.descricao.setText(pesagems.get(i).getDescricao());
-     //   viewHolder.hectares.setText(String.valueOf(pesagems.get(i).getHectares()) + " hec");
+        viewHolder.nome.setText(pesagems.get(i).getData());
+        viewHolder.descricao.setText(pesagems.get(i).getDescricao());
+
+       // Lote lote = LoteViewModel.getById(pesagems.get(i).getLoteId());
+
+       // viewHolder.sLote.setText("Lote: " + lote.getNome());
 
     }
 
@@ -51,13 +61,13 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
 
     class PesagemViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nome, descricao, hectares;
+        private TextView nome, descricao, sLote;
 
         public PesagemViewHolder(View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.text_view_title);
             descricao = itemView.findViewById(R.id.text_view_description);
-            hectares = itemView.findViewById(R.id.text_view_priority);
+            sLote = itemView.findViewById(R.id.text_view_priority);
 
             //itemView.setOnClickListener((View.OnClickListener) this);
             itemView.setOnClickListener(new View.OnClickListener() {

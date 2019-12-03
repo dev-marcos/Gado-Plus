@@ -14,11 +14,14 @@ import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Lote;
+import br.edu.farol.gadoplus.model.Propriedade;
+import br.edu.farol.gadoplus.ui.propriedade.PropriedadeViewModel;
 
 public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder> {
 
     private List<Lote> lotes;
     private OnItemClickListener listener;
+    private PropriedadeViewModel propriedadeViewModel;
 
     @Override
     public LoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,9 +34,12 @@ public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder
     @Override
     public void onBindViewHolder(LoteViewHolder viewHolder, int i) {
 
-    //    viewHolder.nome.setText(lotes.get(i).getNome());
-     //   viewHolder.descricao.setText(lotes.get(i).getDescricao());
-    //    viewHolder.hectares.setText(String.valueOf(lotes.get(i).getHectares()) + " hec");
+        viewHolder.nome.setText(lotes.get(i).getNome());
+        viewHolder.descricao.setText(lotes.get(i).getDescricao());
+
+        //Propriedade propriedade = propriedadeViewModel.getById(lotes.get(i).getPropriedadeId());
+
+        //viewHolder.sPropriedade.setText(propriedade.getNome());
 
     }
 
@@ -51,15 +57,14 @@ public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder
 
     class LoteViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nome, descricao, hectares;
+        private TextView nome, descricao, sPropriedade;
 
         public LoteViewHolder(View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.text_view_title);
             descricao = itemView.findViewById(R.id.text_view_description);
-            hectares = itemView.findViewById(R.id.text_view_priority);
+            sPropriedade = itemView.findViewById(R.id.text_view_priority);
 
-            //itemView.setOnClickListener((View.OnClickListener) this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -78,11 +83,5 @@ public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder
     public void setOnClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-
-    // public LoteAdapter(List<Lote> lotes) {
-    //   this.lotes = lotes;
-    //}
-
-
+    
 }

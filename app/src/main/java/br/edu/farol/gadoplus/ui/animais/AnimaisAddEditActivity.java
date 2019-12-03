@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -58,11 +59,11 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     private EditText    editTextObservacoes;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animais_add_edit);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         editTextNome              = findViewById(R.id.et_animais_nome);
         spinnerLote               = findViewById(R.id.spinner_animais_lote);
@@ -78,12 +79,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         editTextObservacoes       = findViewById(R.id.et_animais_observacoes);
 
 
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
         Intent intent = getIntent();
-
-
 
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar");
@@ -96,10 +92,17 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
             editTextDtDesmame.setText(intent.getStringExtra(EXTRA_DT_DESMAME));
             editTextObservacoes.setText(intent.getStringExtra(EXTRA_OBSERVACOES));
 
+            String sexo = intent.getStringExtra(EXTRA_SEXO);
+
+            if (sexo.contains("Macho")){
+                radioButtonMacho.setChecked(true);
+            }else{
+                radioButtonFemea.setChecked(true);
+            }
+
             //spinnerLote
             //spinnerRaca
-            //radioButtonMacho
-            ///radioButtonFemea
+
 
         } else {
             setTitle("Cadastar");
@@ -126,10 +129,10 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_item_edit_save:
-                onSavePropriedades();
+                onSave();
                 return true;
             case R.id.action_item_delete:
-                onDeletePropriedades();
+                onDelete();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -138,33 +141,30 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
     }
 
-    private void onSavePropriedades() {
+    private void onSave() {
 
-        //String nome = editTextNome.getText().toString();
-        String nome = "Nome qualquer";
+
+
         int loteId = 1;
-        String sexo = "Macho";
-        Date dtEntrada = Util.StringToDate("13/01/2019");
-        Date dtPrimeiraPesagem = Util.StringToDate("13/01/2019");
-        double primeiroPeso = 0;
         int racaId = 1;
-        double precoCompra = 0;
-        Date dtNascimento = Util.StringToDate("13/01/2019");
-        Date dtDesmame  = Util.StringToDate("13/01/2019");
-        String observacoes = "Observacao qualquer";
+
+        String nome = editTextNome.getText().toString();
+        String sexo = radioButtonFemea.isChecked() ? "Macho": "Fêmea";
+        String dtEntrada = editTextDtEntrada.getText().toString();
+        String dtPrimeiraPesagem =  editTextDtPrimeiraPesagem.getText().toString();
+        double primeiroPeso =  editTextPrimeiroPeso.getText().toString().trim().isEmpty()? 0 : Double.parseDouble(editTextPrimeiroPeso.getText().toString());
+        double precoCompra =  editTextPrecoCompra.getText().toString().trim().isEmpty()? 0 : Double.parseDouble(editTextPrecoCompra.getText().toString());
+        String dtNascimento =  editTextDtNascimento.getText().toString();
+        String dtDesmame  =  editTextDtDesmame.getText().toString();
+        String observacoes =  editTextObservacoes.getText().toString();
 
 
-        //if (!editTextHectares.getText().toString().trim().isEmpty())
-          //  hectare = Double.parseDouble(editTextHectares.getText().toString());
+        if (nome.trim().isEmpty() || sexo.trim().isEmpty() || dtEntrada.trim().isEmpty() ||
+                dtPrimeiraPesagem.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        }else{
 
-        //String descricao = editTextDescricao.getText().toString();
-
-
-       // if (nome.trim().isEmpty() || observacoes.trim().isEmpty()) {
-         //   Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        //}else{
             Intent data = new Intent();
-
 
             data.putExtra(EXTRA_NOME, nome);
             data.putExtra(EXTRA_LOTE_ID, loteId);
@@ -178,7 +178,6 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
             data.putExtra(EXTRA_DT_DESMAME, dtDesmame);
             data.putExtra(EXTRA_OBSERVACOES, observacoes);
 
-
             int id = getIntent().getIntExtra(EXTRA_ID, -1);
             if (id != -1) {
                 data.putExtra(EXTRA_ID, id);
@@ -186,16 +185,16 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
-       // }
+        }
     }
 
-    private void onDeletePropriedades() {
+    private void onDelete() {
         Intent data = new Intent();
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
 
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);
-            setResult(PropriedadeFragment.DELETE_REQUEST, data);
+            setResult(AnimaisFragment.DELETE_REQUEST, data);
             finish();
         }
     }
