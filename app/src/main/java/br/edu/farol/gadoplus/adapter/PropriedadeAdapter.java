@@ -79,10 +79,4 @@ public class PropriedadeAdapter extends RecyclerView.Adapter<PropriedadeAdapter.
         this.listener = listener;
     }
 
-
-    // public PropriedadeAdapter(List<Propriedade> propriedades) {
-    //   this.propriedades = propriedades;
-    //}
-
-
 }

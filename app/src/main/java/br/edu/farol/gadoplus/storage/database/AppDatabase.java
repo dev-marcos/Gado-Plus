@@ -39,7 +39,8 @@ import br.edu.farol.gadoplus.storage.database.dao.TipoGastoDao;
                 Raca.class,
                 TipoGasto.class
         },
-        version = 1
+        version = 1,
+        exportSchema = false
 )
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {

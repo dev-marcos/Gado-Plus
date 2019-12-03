@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -36,18 +37,26 @@ public class PropriedadeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_propriedades, container, false);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerview);
+        final RecyclerView recyclerView = root.findViewById(R.id.rv_propriedades);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
         final PropriedadeAdapter adapter = new PropriedadeAdapter();
         recyclerView.setAdapter(adapter);
 
+        final TextView tvVazio = root.findViewById(R.id.tv_propriedade_nenhum_registro);
+
         propriedadeViewModel = ViewModelProviders.of(this).get(PropriedadeViewModel.class);
         propriedadeViewModel.getAll().observe(this, new Observer<List<Propriedade>>() {
             @Override
             public void onChanged(@Nullable List<Propriedade> propriedades) {
-                adapter.setPropriedade(propriedades);
+                if (propriedades.size()>0){
+                    tvVazio.setVisibility(View.GONE);
+                    adapter.setPropriedade(propriedades);
+                }else{
+                    tvVazio.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -118,10 +127,8 @@ public class PropriedadeFragment extends Fragment {
             propriedade.setId(id);
             propriedadeViewModel.delete(propriedade);
 
-            Toast.makeText(getContext(), "Registro atualizado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Registro deletado", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 }

@@ -3,6 +3,7 @@ package br.edu.farol.gadoplus.model;
 import java.util.Date;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "animal")
@@ -43,6 +44,7 @@ public class Animal{
     @ColumnInfo(name = "observacoes")
     private String observacoes;
 
+    @Ignore
     public Animal(String nome, int loteId, String sexo, Date dtEntrada,
                   Date dtPrimeiraPesagem, double primeiroPeso, int racaId, double precoCompra,
                   Date dtNascimento, Date dtDesmame, String observacoes){
@@ -57,6 +59,10 @@ public class Animal{
         this.dtNascimento = dtNascimento;
         this.dtDesmame = dtDesmame;
         this.observacoes = observacoes;
+    }
+
+    public Animal(){
+
     }
 
     public int getId() {

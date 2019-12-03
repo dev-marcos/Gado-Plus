@@ -2,6 +2,7 @@ package br.edu.farol.gadoplus.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "propriedade")
@@ -15,6 +16,7 @@ public class Propriedade {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
+    @Ignore
     public Propriedade(String nome, double hectares, String descricao){
         setNome(nome);
         setHectares(hectares);

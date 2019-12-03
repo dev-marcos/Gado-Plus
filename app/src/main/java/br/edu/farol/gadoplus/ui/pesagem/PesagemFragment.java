@@ -23,13 +23,13 @@ public class PesagemFragment extends Fragment {
         pesagemViewModel =
                 ViewModelProviders.of(this).get(PesagemViewModel.class);
         View root = inflater.inflate(R.layout.fragment_pesagem, container, false);
-        final TextView textView = root.findViewById(R.id.text_pesagem);
+       /* final TextView textView = root.findViewById(R.id.text_pesagem);
         pesagemViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

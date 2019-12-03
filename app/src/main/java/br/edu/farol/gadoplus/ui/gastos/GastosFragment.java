@@ -23,13 +23,13 @@ public class GastosFragment extends Fragment {
         gastosViewModel = ViewModelProviders.of(this).get(GastosViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_gastos, container, false);
-        final TextView textView = root.findViewById(R.id.text_gastos);
+        /*final TextView textView = root.findViewById(R.id.text_gastos);
         gastosViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

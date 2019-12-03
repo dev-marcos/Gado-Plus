@@ -1,19 +1,49 @@
 package br.edu.farol.gadoplus.ui.gastos;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GastosViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.Propriedade;
+import br.edu.farol.gadoplus.storage.database.repository.GastoRepository;
+import br.edu.farol.gadoplus.storage.database.repository.PropriedadeRepository;
 
-    public GastosViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Fragmento de Gastos");
+public class GastosViewModel extends AndroidViewModel {
+
+    private GastoRepository repository;
+    private LiveData<List<Gasto>> allGastos;
+
+    public GastosViewModel(@NonNull Application application) {
+        super(application);
+        repository = new GastoRepository(application);
+        allGastos = repository.getAll();
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void insert(Gasto gasto) {
+        repository.insert(gasto);
+    }
+
+    public void update(Gasto gasto) {
+        repository.update(gasto);
+    }
+
+    public void delete(Gasto gasto) {
+        repository.delete(gasto);
+    }
+
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    public LiveData<List<Gasto>> getAll() {
+        return allGastos;
     }
 }
