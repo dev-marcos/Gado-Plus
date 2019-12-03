@@ -49,6 +49,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_propriedade_descricao"
             android:layout_width="match_parent"

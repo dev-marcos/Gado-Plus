@@ -66,7 +66,7 @@ public class AnimaisFragment extends Fragment {
             }
         });
 
-        FloatingActionButton buttonAdd = root.findViewById(R.id.button_add_propriedade);
+        FloatingActionButton buttonAdd = root.findViewById(R.id.button_add_animais);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
