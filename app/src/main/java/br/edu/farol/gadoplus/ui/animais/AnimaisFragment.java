@@ -103,7 +103,7 @@ public class AnimaisFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK){
+        if ((resultCode == Activity.RESULT_OK)&&(requestCode == ADD_REQUEST || requestCode == EDIT_REQUEST)){
             Animal animal = new Animal();
 
             animal.setNome(data.getStringExtra(AnimaisAddEditActivity.EXTRA_NOME));

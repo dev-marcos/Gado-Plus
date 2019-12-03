@@ -93,13 +93,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <RadioButton
-                    android:id="@+id/rb_aniamsi_macho"
+                    android:id="@+id/rb_animais_macho"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Macho" />
 
                 <RadioButton
-                    android:id="@+id/rb_aniamsi_femea"
+                    android:id="@+id/rb_animais_femea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/input_layout_margin"

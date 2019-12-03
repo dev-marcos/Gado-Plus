@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,9 +44,18 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_OBSERVACOES="br.edu.farol.gadoplus.ui.propriedades.EXTRA_OBSERVACOES";
 
 
-    private EditText editTextNome;
-    private EditText editTextHectares;
-    private EditText editTextDescricao;
+    private EditText    editTextNome;
+    private Spinner     spinnerLote;
+    private RadioButton radioButtonMacho;
+    private RadioButton radioButtonFemea;
+    private EditText    editTextDtEntrada;
+    private EditText    editTextDtPrimeiraPesagem;
+    private EditText    editTextPrimeiroPeso;
+    private Spinner     spinnerRaca;
+    private EditText    editTextPrecoCompra;
+    private EditText    editTextDtNascimento;
+    private EditText    editTextDtDesmame;
+    private EditText    editTextObservacoes;
 
 
 
@@ -53,9 +64,20 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animais_add_edit);
 
-        editTextNome = findViewById(R.id.et_propriedade_nome);
-        editTextHectares = findViewById(R.id.et_propriedade_hectare);
-        editTextDescricao = findViewById(R.id.et_propriedade_descricao);
+        editTextNome              = findViewById(R.id.et_animais_nome);
+        spinnerLote               = findViewById(R.id.spinner_animais_lote);
+        radioButtonMacho          = findViewById(R.id.rb_animais_macho);
+        radioButtonFemea          = findViewById(R.id.rb_animais_femea);
+        editTextDtEntrada         = findViewById(R.id.et_animais_dt_entrada);
+        editTextDtPrimeiraPesagem = findViewById(R.id.et_animais_dt_primeira_pesagem);
+        editTextPrimeiroPeso      = findViewById(R.id.et_animais_primeiro_peso);
+        spinnerRaca               = findViewById(R.id.spinner_animais_raca);
+        editTextPrecoCompra       = findViewById(R.id.et_animais_preco_compra);
+        editTextDtNascimento      = findViewById(R.id.et_animais_dt_nascimento);
+        editTextDtDesmame         = findViewById(R.id.et_animais_dt_desmame);
+        editTextObservacoes       = findViewById(R.id.et_animais_observacoes);
+
+
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -66,8 +88,19 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar");
             editTextNome.setText(intent.getStringExtra(EXTRA_NOME));
-            editTextHectares.setText(String.valueOf(intent.getDoubleExtra(EXTRA_LOTE_ID,0)));
-            editTextDescricao.setText(intent.getStringExtra(EXTRA_SEXO));
+            editTextDtEntrada.setText(intent.getStringExtra(EXTRA_DT_ENTRADA));
+            editTextDtPrimeiraPesagem.setText(intent.getStringExtra(EXTRA_DT_PRIMEIRA_PESAGEM));
+            editTextPrimeiroPeso.setText(String.valueOf(intent.getDoubleExtra(EXTRA_PRIMEIRO_PESO,0)));
+            editTextPrecoCompra.setText(String.valueOf(intent.getDoubleExtra(EXTRA_PRECO_COMPRA,0)));
+            editTextDtNascimento.setText(intent.getStringExtra(EXTRA_DT_NASCIMENTO));
+            editTextDtDesmame.setText(intent.getStringExtra(EXTRA_DT_DESMAME));
+            editTextObservacoes.setText(intent.getStringExtra(EXTRA_OBSERVACOES));
+
+            //spinnerLote
+            //spinnerRaca
+            //radioButtonMacho
+            ///radioButtonFemea
+
         } else {
             setTitle("Cadastar");
         }
@@ -108,9 +141,9 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     private void onSavePropriedades() {
 
         //String nome = editTextNome.getText().toString();
-        String nome = "";
+        String nome = "Nome qualquer";
         int loteId = 1;
-        String sexo = "";
+        String sexo = "Macho";
         Date dtEntrada = Util.StringToDate("13/01/2019");
         Date dtPrimeiraPesagem = Util.StringToDate("13/01/2019");
         double primeiroPeso = 0;
@@ -118,7 +151,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         double precoCompra = 0;
         Date dtNascimento = Util.StringToDate("13/01/2019");
         Date dtDesmame  = Util.StringToDate("13/01/2019");
-        String observacoes = "";
+        String observacoes = "Observacao qualquer";
 
 
         //if (!editTextHectares.getText().toString().trim().isEmpty())
@@ -127,9 +160,9 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         //String descricao = editTextDescricao.getText().toString();
 
 
-        if (nome.trim().isEmpty() || observacoes.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        }else{
+       // if (nome.trim().isEmpty() || observacoes.trim().isEmpty()) {
+         //   Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        //}else{
             Intent data = new Intent();
 
 
@@ -153,7 +186,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
-        }
+       // }
     }
 
     private void onDeletePropriedades() {
