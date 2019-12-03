@@ -109,13 +109,13 @@ public class AnimaisFragment extends Fragment {
             animal.setNome(data.getStringExtra(AnimaisAddEditActivity.EXTRA_NOME));
             animal.setLoteId(data.getIntExtra(AnimaisAddEditActivity.EXTRA_LOTE_ID,0));
             animal.setSexo(data.getStringExtra(AnimaisAddEditActivity.EXTRA_SEXO));
-            animal.setDtEntrada(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_ENTRADA)));
-            animal.setDtPrimeiraPesagem(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_PRIMEIRA_PESAGEM)));
+            animal.setDtEntrada(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_ENTRADA));
+            animal.setDtPrimeiraPesagem(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_PRIMEIRA_PESAGEM));
             animal.setPrimeiroPeso(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRIMEIRO_PESO, 0));
             animal.setRacaId(data.getIntExtra(AnimaisAddEditActivity.EXTRA_RACA_ID,0));
             animal.setPrecoCompra(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRECO_COMPRA,0));
-            animal.setDtEntrada(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_NASCIMENTO)));
-            animal.setDtDesmame(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_DESMAME)));
+            animal.setDtEntrada(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_NASCIMENTO));
+            animal.setDtDesmame(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_DESMAME));
             animal.setObservacoes(data.getStringExtra(AnimaisAddEditActivity.EXTRA_OBSERVACOES));
 
             switch (requestCode){

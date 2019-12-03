@@ -26,6 +26,7 @@ import br.edu.farol.gadoplus.storage.database.dao.PesagemDao;
 import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
 import br.edu.farol.gadoplus.storage.database.dao.RacaDao;
 import br.edu.farol.gadoplus.storage.database.dao.TipoGastoDao;
+import br.edu.farol.gadoplus.util.Util;
 
 
 @Database(
@@ -79,9 +80,11 @@ public abstract class AppDatabase extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private PropriedadeDao propriedadeDao;
         private RacaDao racaDao;
+        private AnimalDao animalDao;
 
         private PopulateDbAsyncTask(AppDatabase db) {
             propriedadeDao = db.propriedadeDao();
+            animalDao = db.animalDao();
             racaDao = db.racaDao();
         }
 
@@ -90,6 +93,21 @@ public abstract class AppDatabase extends RoomDatabase {
             propriedadeDao.insert(new Propriedade("Title 1", 12,"Description 1"));
             propriedadeDao.insert(new Propriedade("Title 2", 23,"Description 2"));
             propriedadeDao.insert(new Propriedade("Title 3", 45,"Description 3"));
+
+            Animal animal = new Animal();
+            animal.setNome("Boi Teste");
+            animal.setSexo("Macho");
+            animal.setDtEntrada("01/05/2019");
+            animal.setDtPrimeiraPesagem("01/05/2019");
+            animal.setPrimeiroPeso(78);
+            animal.setRacaId(1);
+            animal.setPrecoCompra(90);
+            animal.setDtNascimento("01/05/2019");
+            animal.setDtDesmame("01/05/2019");
+            animal.setObservacoes("Nenhuma Observação a declarar");
+
+            animalDao.insert(animal);
+
             return null;
         }
     }

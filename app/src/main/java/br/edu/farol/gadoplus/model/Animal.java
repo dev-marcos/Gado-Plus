@@ -1,6 +1,5 @@
 package br.edu.farol.gadoplus.model;
 
-import java.util.Date;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -21,10 +20,10 @@ public class Animal{
     private String sexo;
 
     @ColumnInfo(name = "dt_entrada")
-    private Date dtEntrada;
+    private String dtEntrada;
 
     @ColumnInfo(name = "dt_primeira_pesagem")
-    private Date dtPrimeiraPesagem;
+    private String dtPrimeiraPesagem;
 
     @ColumnInfo(name = "primeiro_peso")
     private double primeiroPeso;
@@ -36,18 +35,18 @@ public class Animal{
     private double precoCompra;
 
     @ColumnInfo(name = "dt_nascimento")
-    private Date dtNascimento;
+    private String dtNascimento;
 
     @ColumnInfo(name = "dt_desmame")
-    private Date dtDesmame;
+    private String dtDesmame;
 
     @ColumnInfo(name = "observacoes")
     private String observacoes;
 
     @Ignore
-    public Animal(String nome, int loteId, String sexo, Date dtEntrada,
-                  Date dtPrimeiraPesagem, double primeiroPeso, int racaId, double precoCompra,
-                  Date dtNascimento, Date dtDesmame, String observacoes){
+    public Animal(String nome, int loteId, String sexo, String dtEntrada,
+                  String dtPrimeiraPesagem, double primeiroPeso, int racaId, double precoCompra,
+                  String dtNascimento, String dtDesmame, String observacoes){
         this.nome = nome;
         this.loteId = loteId;
         this.sexo = sexo;
@@ -97,19 +96,19 @@ public class Animal{
         this.sexo = sexo;
     }
 
-    public Date getDtEntrada() {
+    public String getDtEntrada() {
         return dtEntrada;
     }
 
-    public void setDtEntrada(Date dtEntrada) {
+    public void setDtEntrada(String dtEntrada) {
         this.dtEntrada = dtEntrada;
     }
 
-    public Date getDtPrimeiraPesagem() {
+    public String getDtPrimeiraPesagem() {
         return dtPrimeiraPesagem;
     }
 
-    public void setDtPrimeiraPesagem(Date dtPrimeiraPesagem) {
+    public void setDtPrimeiraPesagem(String dtPrimeiraPesagem) {
         this.dtPrimeiraPesagem = dtPrimeiraPesagem;
     }
 
@@ -137,19 +136,19 @@ public class Animal{
         this.precoCompra = precoCompra;
     }
 
-    public Date getDtNascimento() {
+    public String getDtNascimento() {
         return dtNascimento;
     }
 
-    public void setDtNascimento(Date dtNascimento) {
+    public void setDtNascimento(String dtNascimento) {
         this.dtNascimento = dtNascimento;
     }
 
-    public Date getDtDesmame() {
+    public String getDtDesmame() {
         return dtDesmame;
     }
 
-    public void setDtDesmame(Date dtDesmame) {
+    public void setDtDesmame(String dtDesmame) {
         this.dtDesmame = dtDesmame;
     }
 

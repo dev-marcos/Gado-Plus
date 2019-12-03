@@ -1,6 +1,5 @@
 package br.edu.farol.gadoplus.model;
 
-import java.util.Date;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -18,7 +17,7 @@ public class Gasto {
     private int animalId;
 
     @ColumnInfo(name = "data")
-    private Date data;
+    private String data;
 
     @ColumnInfo(name = "valor")
     private double valor;
@@ -26,7 +25,7 @@ public class Gasto {
     @ColumnInfo(name = "descricao")
     private String descricao;
 
-    public Gasto(int tipoGastoId, int animalId, Date data, double valor, String descricao){
+    public Gasto(int tipoGastoId, int animalId, String data, double valor, String descricao){
         this.tipoGastoId = tipoGastoId;
         this.animalId = animalId;
         this.data = data;
@@ -58,11 +57,11 @@ public class Gasto {
         this.animalId = animalId;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 

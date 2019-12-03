@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
@@ -26,41 +28,84 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/tv_animais_lote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Lote"
-            android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginTop="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"/>
-
-        <Spinner
-            android:id="@+id/spinner_animais_lote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"></Spinner>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tv_animais_sexo"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/input_layout_margin"
+            android:layout_marginLeft="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Sexo">
-            <EditText
-                android:id="@+id/et_animais_sexo"
-                android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/input_layout_margin">
+
+            <TextView
+                android:id="@+id/tv_animais_lote"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:text="Lote:"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_animais_lote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_animais_lote"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginRight="@dimen/input_layout_margin">
+
+            <TextView
+                android:id="@+id/tv_animais_sexo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sexo:"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_animais_sexo"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rb_aniamsi_macho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Macho" />
+
+                <RadioButton
+                    android:id="@+id/rb_aniamsi_femea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/input_layout_margin"
+                    android:text="Femea" />
+            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +120,8 @@
                 android:id="@+id/et_animais_dt_entrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -86,11 +132,13 @@
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
             android:hint="Data Primeiro Peso">
+
             <EditText
                 android:id="@+id/et_animais_dt_primeira_pesagem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -109,23 +157,37 @@
                 android:autofillHints="" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_animais_raca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Raça"
-            android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginTop="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"/>
-
-        <Spinner
-            android:id="@+id/spinner_animais_raca"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/input_layout_margin"
-            android:layout_marginEnd="@dimen/input_layout_margin"></Spinner>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/input_layout_margin"
+            android:layout_marginTop="@dimen/input_layout_margin"
+            android:layout_marginRight="@dimen/input_layout_margin">
+
+            <TextView
+                android:id="@+id/tv_animais_raca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Raça:"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_animais_raca"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_animais_raca"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_animais_preco_compra"
@@ -155,7 +217,8 @@
                 android:id="@+id/et_animais_dt_nascimento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:inputType="date"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -170,7 +233,8 @@
                 android:id="@+id/et_animais_dt_desmame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:inputType="date"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
