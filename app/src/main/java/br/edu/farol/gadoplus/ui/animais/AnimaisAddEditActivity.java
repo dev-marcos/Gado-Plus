@@ -14,14 +14,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.adapter.PropriedadeAdapter;
+import br.edu.farol.gadoplus.model.Animal;
 import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.storage.database.AppDatabase;
 import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
 import br.edu.farol.gadoplus.ui.propriedade.PropriedadeFragment;
+import br.edu.farol.gadoplus.util.Util;
 
 
 public class AnimaisAddEditActivity extends AppCompatActivity {
@@ -103,22 +106,45 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     }
 
     private void onSavePropriedades() {
-        String nome = editTextNome.getText().toString();
-        double hectare =0;
 
-        if (!editTextHectares.getText().toString().trim().isEmpty())
-            hectare = Double.parseDouble(editTextHectares.getText().toString());
+        //String nome = editTextNome.getText().toString();
+        String nome = "";
+        int loteId = 1;
+        String sexo = "";
+        Date dtEntrada = Util.StringToDate("13/01/2019");
+        Date dtPrimeiraPesagem = Util.StringToDate("13/01/2019");
+        double primeiroPeso = 0;
+        int racaId = 1;
+        double precoCompra = 0;
+        Date dtNascimento = Util.StringToDate("13/01/2019");
+        Date dtDesmame  = Util.StringToDate("13/01/2019");
+        String observacoes = "";
 
-        String descricao = editTextDescricao.getText().toString();
+
+        //if (!editTextHectares.getText().toString().trim().isEmpty())
+          //  hectare = Double.parseDouble(editTextHectares.getText().toString());
+
+        //String descricao = editTextDescricao.getText().toString();
 
 
-        if (nome.trim().isEmpty() || descricao.trim().isEmpty()) {
+        if (nome.trim().isEmpty() || observacoes.trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
             Intent data = new Intent();
+
+
             data.putExtra(EXTRA_NOME, nome);
-            data.putExtra(EXTRA_LOTE_ID, hectare);
-            data.putExtra(EXTRA_SEXO, descricao);
+            data.putExtra(EXTRA_LOTE_ID, loteId);
+            data.putExtra(EXTRA_SEXO, sexo);
+            data.putExtra(EXTRA_DT_ENTRADA, dtEntrada);
+            data.putExtra(EXTRA_DT_PRIMEIRA_PESAGEM, dtPrimeiraPesagem);
+            data.putExtra(EXTRA_PRIMEIRO_PESO, primeiroPeso);
+            data.putExtra(EXTRA_RACA_ID, racaId);
+            data.putExtra(EXTRA_PRECO_COMPRA, precoCompra);
+            data.putExtra(EXTRA_DT_NASCIMENTO, dtNascimento);
+            data.putExtra(EXTRA_DT_DESMAME, dtDesmame);
+            data.putExtra(EXTRA_OBSERVACOES, observacoes);
+
 
             int id = getIntent().getIntExtra(EXTRA_ID, -1);
             if (id != -1) {

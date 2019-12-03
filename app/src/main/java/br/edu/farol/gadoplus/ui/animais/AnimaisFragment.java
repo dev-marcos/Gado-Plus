@@ -29,6 +29,7 @@ import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.ui.propriedade.PropriedadeAddEditActivity;
 import br.edu.farol.gadoplus.ui.propriedade.PropriedadeFragment;
 import br.edu.farol.gadoplus.ui.propriedade.PropriedadeViewModel;
+import br.edu.farol.gadoplus.util.Util;
 
 public class AnimaisFragment extends Fragment {
     public static final int ADD_REQUEST = 1;
@@ -43,14 +44,14 @@ public class AnimaisFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_animais, container, false);
 
 
-        final RecyclerView recyclerView = root.findViewById(R.id.rv_propriedades);
+        final RecyclerView recyclerView = root.findViewById(R.id.rv_animais);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
         final AnimalAdapter adapter = new AnimalAdapter();
         recyclerView.setAdapter(adapter);
 
-        final TextView tvVazio = root.findViewById(R.id.tv_propriedade_nenhum_registro);
+        final TextView tvVazio = root.findViewById(R.id.tv_animais_nenhum_registro);
 
 
         animaisViewModel.getAll().observe(this, new Observer<List<Animal>>() {
@@ -70,7 +71,7 @@ public class AnimaisFragment extends Fragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), PropriedadeAddEditActivity.class);
+                Intent intent = new Intent(getContext(), AnimaisAddEditActivity.class);
                 startActivityForResult(intent, ADD_REQUEST);
             }
         });
@@ -102,12 +103,20 @@ public class AnimaisFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (resultCode == Activity.RESULT_OK){
             Animal animal = new Animal();
-            String nome = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_NOME);
-            double hectares = data.getDoubleExtra(PropriedadeAddEditActivity.EXTRA_HECTARES, 0);
-            String descricao = data.getStringExtra(PropriedadeAddEditActivity.EXTRA_DESCRICAO);
+
+            animal.setNome(data.getStringExtra(AnimaisAddEditActivity.EXTRA_NOME));
+            animal.setLoteId(data.getIntExtra(AnimaisAddEditActivity.EXTRA_LOTE_ID,0));
+            animal.setSexo(data.getStringExtra(AnimaisAddEditActivity.EXTRA_SEXO));
+            animal.setDtEntrada(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_ENTRADA)));
+            animal.setDtPrimeiraPesagem(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_PRIMEIRA_PESAGEM)));
+            animal.setPrimeiroPeso(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRIMEIRO_PESO, 0));
+            animal.setRacaId(data.getIntExtra(AnimaisAddEditActivity.EXTRA_RACA_ID,0));
+            animal.setPrecoCompra(data.getDoubleExtra(AnimaisAddEditActivity.EXTRA_PRECO_COMPRA,0));
+            animal.setDtEntrada(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_NASCIMENTO)));
+            animal.setDtDesmame(Util.StringToDate(data.getStringExtra(AnimaisAddEditActivity.EXTRA_DT_DESMAME)));
+            animal.setObservacoes(data.getStringExtra(AnimaisAddEditActivity.EXTRA_OBSERVACOES));
 
             switch (requestCode){
                 case ADD_REQUEST:
@@ -125,9 +134,6 @@ public class AnimaisFragment extends Fragment {
                     Toast.makeText(getContext(), "Registro atualizado", Toast.LENGTH_SHORT).show();
                     break;
             }
-
-
-
         }else if (resultCode == PropriedadeFragment.DELETE_REQUEST) {
 
             int id = data.getIntExtra(PropriedadeAddEditActivity.EXTRA_ID, -1);
