@@ -2,11 +2,8 @@ package br.edu.farol.gadoplus.storage.database.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
-
 import br.edu.farol.gadoplus.model.PesagemAnimal;
 import br.edu.farol.gadoplus.storage.database.AppDatabase;
 import br.edu.farol.gadoplus.storage.database.dao.PesagemAnimalDao;
@@ -40,6 +37,8 @@ public class PesagemAnimalRepository {
     public LiveData<List<PesagemAnimal>> getAll() {
         return allPesagemAnimals;
     }
+
+    public PesagemAnimal getById(int id){ return pesagemAnimalDao.getById(id);}
 
     private static class InsertPesagemAnimalAsyncTask extends AsyncTask<PesagemAnimal, Void, Void> {
         private PesagemAnimalDao pesagemAnimalDao;

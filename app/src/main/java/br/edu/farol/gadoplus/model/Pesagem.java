@@ -61,5 +61,6 @@ public class Pesagem{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }
 

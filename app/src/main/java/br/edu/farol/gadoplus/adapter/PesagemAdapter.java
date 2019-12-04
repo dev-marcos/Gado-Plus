@@ -1,29 +1,23 @@
 package br.edu.farol.gadoplus.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
-import br.edu.farol.gadoplus.model.Lote;
 import br.edu.farol.gadoplus.model.Pesagem;
-import br.edu.farol.gadoplus.storage.database.AppDatabase;
-import br.edu.farol.gadoplus.storage.database.repository.LoteRepository;
-import br.edu.farol.gadoplus.ui.lotes.LotesViewModel;
+
 
 public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemViewHolder> {
 
     private List<Pesagem> pesagems;
     private OnItemClickListener listener;
-    private LotesViewModel LoteViewModel;
+    private OnItemLongClickListener longListener;
 
     @Override
     public PesagemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,14 +31,26 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
 
     @Override
     public void onBindViewHolder(PesagemViewHolder viewHolder, int i) {
+        final Pesagem pesagem = pesagems.get(i);
+        if (pesagem != null){
+            viewHolder.nome.setText(pesagem.getData());
+            viewHolder.descricao.setText(pesagem.getDescricao());
 
-        viewHolder.nome.setText(pesagems.get(i).getData());
-        viewHolder.descricao.setText(pesagems.get(i).getDescricao());
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(pesagem);
+                }
+            });
 
-       // Lote lote = LoteViewModel.getById(pesagems.get(i).getLoteId());
-
-       // viewHolder.sLote.setText("Lote: " + lote.getNome());
-
+            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    longListener.onItemLongClick(pesagem);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -69,15 +75,6 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
             descricao = itemView.findViewById(R.id.text_view_description);
             sLote = itemView.findViewById(R.id.text_view_priority);
 
-            //itemView.setOnClickListener((View.OnClickListener) this);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION)
-                        listener.onItemClick(pesagems.get(position));
-                }
-            });
         }
     }
 
@@ -85,14 +82,21 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
         void onItemClick(Pesagem pesagem);
     }
 
+    public interface OnItemLongClickListener {
+        void onItemLongClick(Pesagem pesagem);
+    }
+
+
     public void setOnClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
 
-    // public PesagemAdapter(List<Pesagem> pesagems) {
-    //   this.pesagems = pesagems;
-    //}
+    public void setOnLongClickListener(OnItemLongClickListener listener) {
+        this.longListener = listener;
+    }
+
+
 
 
 }

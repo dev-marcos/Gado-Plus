@@ -83,6 +83,16 @@ public class PesagemFragment extends Fragment {
             }
         });
 
+        adapter.setOnLongClickListener(new PesagemAdapter.OnItemLongClickListener(){
+            @Override
+            public void onItemLongClick(Pesagem pesagem) {
+               // Intent intent = new Intent(getContext(), PesagemAddEditActivity.class);
+               //startActivityForResult(intent, EDIT_REQUEST);
+                Toast.makeText(getContext(), "long clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         return root;
     }
 

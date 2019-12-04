@@ -7,11 +7,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.common.collect.Multiset;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.Animal;
+import br.edu.farol.gadoplus.ui.animais.AnimaisViewModel;
 
 public class GastosAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.gastos.EXTRA_ID";
@@ -27,6 +35,8 @@ public class GastosAddEditActivity extends AppCompatActivity {
     private EditText editTextData;
     private EditText editTextValor;
     private EditText editTextDescricao;
+
+    private AnimaisViewModel animaisViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

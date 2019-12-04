@@ -17,7 +17,6 @@ public class PesagemViewModel extends AndroidViewModel {
         super(application);
         repository = new PesagemRepository(application);
         allPesagens = repository.getAll();
-
     }
 
     public void insert(Pesagem pesagem) {

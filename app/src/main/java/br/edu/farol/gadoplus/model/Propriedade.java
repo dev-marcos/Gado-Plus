@@ -57,5 +57,5 @@ public class Propriedade {
         this.descricao = descricao;
     }
 
-
+    public String toString(){ return nome; }
 }

@@ -159,4 +159,6 @@ public class Animal{
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
+
+    public String toString(){ return nome; }
 }
