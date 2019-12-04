@@ -43,7 +43,7 @@ public class Animal{
     @ColumnInfo(name = "observacoes")
     private String observacoes;
 
-    @Ignore
+
     public Animal(String nome, int loteId, String sexo, String dtEntrada,
                   String dtPrimeiraPesagem, double primeiroPeso, int racaId, double precoCompra,
                   String dtNascimento, String dtDesmame, String observacoes){
@@ -60,6 +60,7 @@ public class Animal{
         this.observacoes = observacoes;
     }
 
+    @Ignore
     public Animal(){
 
     }

@@ -1,6 +1,7 @@
 package br.edu.farol.gadoplus.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "pesagem_animal")
@@ -23,6 +24,9 @@ public class PesagemAnimal {
         this.animalId = animalId;
         this.peso = peso;
     }
+
+    @Ignore
+    public PesagemAnimal(){}
 
     public int getId() {
         return id;

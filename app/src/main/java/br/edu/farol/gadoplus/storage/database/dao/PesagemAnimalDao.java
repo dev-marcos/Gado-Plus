@@ -32,4 +32,7 @@ public interface PesagemAnimalDao {
     @Query("SELECT * from pesagem_animal")
     LiveData<List<PesagemAnimal>> getAll();
 
+    @Query("SELECT * from pesagem_animal WHERE pesagem_id = :id")
+    LiveData<List<PesagemAnimal>> getAll(int id);
+
 }

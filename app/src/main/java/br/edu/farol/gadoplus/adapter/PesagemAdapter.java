@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.Lote;
 import br.edu.farol.gadoplus.model.Pesagem;
+import br.edu.farol.gadoplus.ui.lotes.LotesViewModel;
 
 
 public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemViewHolder> {
@@ -35,6 +37,8 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
         if (pesagem != null){
             viewHolder.nome.setText(pesagem.getData());
             viewHolder.descricao.setText(pesagem.getDescricao());
+
+
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,6 +78,8 @@ public class PesagemAdapter extends RecyclerView.Adapter<PesagemAdapter.PesagemV
             nome = itemView.findViewById(R.id.text_view_title);
             descricao = itemView.findViewById(R.id.text_view_description);
             sLote = itemView.findViewById(R.id.text_view_priority);
+
+
 
         }
     }

@@ -1,10 +1,9 @@
 package br.edu.farol.gadoplus.ui.animais;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Application;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,18 +15,14 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
+import java.util.List;
 import br.edu.farol.gadoplus.R;
-import br.edu.farol.gadoplus.adapter.PropriedadeAdapter;
-import br.edu.farol.gadoplus.model.Animal;
-import br.edu.farol.gadoplus.model.Propriedade;
-import br.edu.farol.gadoplus.storage.database.AppDatabase;
-import br.edu.farol.gadoplus.storage.database.dao.PropriedadeDao;
-import br.edu.farol.gadoplus.ui.propriedade.PropriedadeFragment;
-import br.edu.farol.gadoplus.util.Util;
+import br.edu.farol.gadoplus.model.Lote;
+import br.edu.farol.gadoplus.model.Raca;
+import br.edu.farol.gadoplus.ui.lotes.LotesViewModel;
+import br.edu.farol.gadoplus.ui.raca.RacaViewModel;
+
 
 
 public class AnimaisAddEditActivity extends AppCompatActivity {
@@ -58,6 +53,12 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     private EditText    editTextDtDesmame;
     private EditText    editTextObservacoes;
 
+    int idAnimal = 0;
+    int idTipoGasto = 0;
+
+    private LotesViewModel lotesViewModel;
+    private RacaViewModel racaViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +67,49 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         editTextNome              = findViewById(R.id.et_animais_nome);
-        spinnerLote               = findViewById(R.id.spinner_animais_lote);
         radioButtonMacho          = findViewById(R.id.rb_animais_macho);
         radioButtonFemea          = findViewById(R.id.rb_animais_femea);
         editTextDtEntrada         = findViewById(R.id.et_animais_dt_entrada);
         editTextDtPrimeiraPesagem = findViewById(R.id.et_animais_dt_primeira_pesagem);
         editTextPrimeiroPeso      = findViewById(R.id.et_animais_primeiro_peso);
-        spinnerRaca               = findViewById(R.id.spinner_animais_raca);
         editTextPrecoCompra       = findViewById(R.id.et_animais_preco_compra);
         editTextDtNascimento      = findViewById(R.id.et_animais_dt_nascimento);
         editTextDtDesmame         = findViewById(R.id.et_animais_dt_desmame);
         editTextObservacoes       = findViewById(R.id.et_animais_observacoes);
+
+
+
+        spinnerLote = findViewById(R.id.spinner_animais_lote);
+        final ArrayAdapter<Lote> adapterLoteSpinner = new ArrayAdapter<Lote>(this,
+                android.R.layout.simple_spinner_item);
+        adapterLoteSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLote.setAdapter(adapterLoteSpinner);
+        lotesViewModel = ViewModelProviders.of(this).get(LotesViewModel.class);
+        lotesViewModel.getAll().observe(this, new Observer<List<Lote>>() {
+            @Override
+            public void onChanged(@Nullable List<Lote> lotes) {
+                adapterLoteSpinner.clear();
+                adapterLoteSpinner.addAll(lotes);
+
+            }
+        });
+
+        spinnerRaca = findViewById(R.id.spinner_animais_raca);
+        final ArrayAdapter<Raca> adapterRacaSpinner = new ArrayAdapter<Raca>(this,
+                android.R.layout.simple_spinner_item);
+        adapterRacaSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRaca.setAdapter(adapterRacaSpinner);
+        racaViewModel = ViewModelProviders.of(this).get(RacaViewModel.class);
+        racaViewModel.getAll().observe(this, new Observer<List<Raca>>() {
+            @Override
+            public void onChanged(@Nullable List<Raca> racas) {
+                adapterRacaSpinner.clear();
+                adapterRacaSpinner.addAll(racas);
+
+            }
+        });
+
+
 
 
         Intent intent = getIntent();
@@ -136,17 +169,18 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
-
     }
 
     private void onSave() {
 
+        Lote lote = (Lote) spinnerLote.getSelectedItem();
+        Raca raca = (Raca) spinnerRaca.getSelectedItem();
+
+        int loteId = lote.getId();
+        int racaId = raca.getId();
 
 
-        int loteId = 1;
-        int racaId = 1;
 
         String nome = editTextNome.getText().toString();
         String sexo = radioButtonFemea.isChecked() ? "Macho": "Fêmea";

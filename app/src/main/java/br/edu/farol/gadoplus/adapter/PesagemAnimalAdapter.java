@@ -31,9 +31,9 @@ public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdap
     @Override
     public void onBindViewHolder(PesagemAnimalViewHolder viewHolder, int i) {
 
-    //    viewHolder.nome.setText(pesagemAnimals.get(i).getNome());
-     //   viewHolder.descricao.setText(pesagemAnimals.get(i).getDescricao());
-     //   viewHolder.hectares.setText(String.valueOf(pesagemAnimals.get(i).getHectares()) + " hec");
+        viewHolder.nome.setText(String.valueOf(pesagemAnimals.get(i).getPeso())+" Kg");
+        viewHolder.descricao.setText("Animal: " +String.valueOf(pesagemAnimals.get(i).getAnimalId()));
+        //viewHolder.hectares.setText(String.valueOf(pesagemAnimals.get(i).getHectares()) + " hec");
 
     }
 
@@ -50,7 +50,6 @@ public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdap
     }
 
     class PesagemAnimalViewHolder extends RecyclerView.ViewHolder {
-
         private TextView nome, descricao, hectares;
 
         public PesagemAnimalViewHolder(View itemView) {
@@ -78,11 +77,6 @@ public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdap
     public void setOnClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-
-    // public PesagemAnimalAdapter(List<PesagemAnimal> pesagemAnimals) {
-    //   this.pesagemAnimals = pesagemAnimals;
-    //}
 
 
 }

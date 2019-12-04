@@ -41,6 +41,8 @@ public class RacaRepository {
         return allRacas;
     }
 
+    public Raca getById(int id){ return racaDao.getById(id);}
+
     private static class InsertRacaAsyncTask extends AsyncTask<Raca, Void, Void> {
         private RacaDao racaDao;
 

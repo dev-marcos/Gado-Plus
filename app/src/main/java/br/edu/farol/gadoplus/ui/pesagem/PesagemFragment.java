@@ -23,6 +23,7 @@ import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.adapter.PesagemAdapter;
+import br.edu.farol.gadoplus.adapter.PesagemAnimalAdapter;
 import br.edu.farol.gadoplus.model.Pesagem;
 
 public class PesagemFragment extends Fragment {
@@ -86,9 +87,9 @@ public class PesagemFragment extends Fragment {
         adapter.setOnLongClickListener(new PesagemAdapter.OnItemLongClickListener(){
             @Override
             public void onItemLongClick(Pesagem pesagem) {
-               // Intent intent = new Intent(getContext(), PesagemAddEditActivity.class);
-               //startActivityForResult(intent, EDIT_REQUEST);
-                Toast.makeText(getContext(), "long clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), PesagemAnimalActivity.class);
+                intent.putExtra(PesagemAnimalActivity.EXTRA_PESAGEM_ID, pesagem.getId());
+                startActivity(intent);
             }
         });
 

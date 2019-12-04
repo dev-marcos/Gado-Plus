@@ -1,5 +1,6 @@
 package br.edu.farol.gadoplus.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -21,12 +23,13 @@ public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder
 
     private List<Lote> lotes;
     private OnItemClickListener listener;
-    private PropriedadeViewModel propriedadeViewModel;
+
 
     @Override
     public LoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
+
         return new LoteViewHolder(itemView);
     }
 
@@ -36,10 +39,6 @@ public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder
 
         viewHolder.nome.setText(lotes.get(i).getNome());
         viewHolder.descricao.setText(lotes.get(i).getDescricao());
-
-        //Propriedade propriedade = propriedadeViewModel.getById(lotes.get(i).getPropriedadeId());
-
-        //viewHolder.sPropriedade.setText(propriedade.getNome());
 
     }
 

@@ -3,6 +3,7 @@ package br.edu.farol.gadoplus.ui.animais;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -24,9 +25,11 @@ public class AnimaisSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animais_search);
+        setTitle("Selecionar Animal");
 
+        animaisViewModel = ViewModelProviders.of(this).get(AnimaisViewModel.class);
 
-        final RecyclerView recyclerView = findViewById(R.id.rv_animais);
+        final RecyclerView recyclerView = findViewById(R.id.rv_search_animais);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
 
@@ -43,15 +46,18 @@ public class AnimaisSearchActivity extends AppCompatActivity {
         adapter.setOnClickListener(new AnimalAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Animal animal) {
-                Intent data = new Intent();
-                data.putExtra(EXTRA_ID, animal.getId());
 
-                //setResult(RESULT_OK, data);
-                //finish();
-                Toast.makeText(getApplicationContext(), "Id:" + String.valueOf(animal.getId()), Toast.LENGTH_LONG).show();
+                result(animal);
             }
         });
 
+    }
+
+    public void result(Animal animal){
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ID, animal.getId());
+        setResult(RESULT_OK, data);
+        finish();
     }
 
 

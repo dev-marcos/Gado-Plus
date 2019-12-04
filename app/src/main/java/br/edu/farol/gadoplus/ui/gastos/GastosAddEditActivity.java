@@ -1,6 +1,9 @@
 package br.edu.farol.gadoplus.ui.gastos;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.common.collect.Multiset;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Animal;
+import br.edu.farol.gadoplus.model.TipoGasto;
 import br.edu.farol.gadoplus.ui.animais.AnimaisViewModel;
 
 public class GastosAddEditActivity extends AppCompatActivity {
@@ -36,7 +37,11 @@ public class GastosAddEditActivity extends AppCompatActivity {
     private EditText editTextValor;
     private EditText editTextDescricao;
 
+    int idAnimal = 0;
+    int idTipoGasto = 0;
+
     private AnimaisViewModel animaisViewModel;
+    private TipoGastosViewModel tipoGastosViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +49,42 @@ public class GastosAddEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gastos_add_edit);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
-
-        spinnerTipoGasto = findViewById(R.id.spinner_gastos_tipo);
-        spinnerAnimal = findViewById(R.id.spinner_gastos_animal);
         editTextData = findViewById(R.id.et_gastos_data);
         editTextValor = findViewById(R.id.et_gastos_valor);
         editTextDescricao = findViewById(R.id.et_gastos_descricao);
+
+
+        spinnerAnimal = findViewById(R.id.spinner_gastos_animal);
+        final ArrayAdapter<Animal> adapterAnimalSpinner = new ArrayAdapter<Animal>(this,
+                android.R.layout.simple_spinner_item);
+        adapterAnimalSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAnimal.setAdapter(adapterAnimalSpinner);
+        animaisViewModel = ViewModelProviders.of(this).get(AnimaisViewModel.class);
+        animaisViewModel.getAll().observe(this, new Observer<List<Animal>>() {
+            @Override
+            public void onChanged(@Nullable List<Animal> animals) {
+                adapterAnimalSpinner.clear();
+                adapterAnimalSpinner.addAll(animals);
+
+            }
+        });
+
+        spinnerTipoGasto = findViewById(R.id.spinner_gastos_tipo);
+        final ArrayAdapter<TipoGasto> adapterTipoGastoSpinner = new ArrayAdapter<TipoGasto>(this,
+                android.R.layout.simple_spinner_item);
+        adapterTipoGastoSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipoGasto.setAdapter(adapterTipoGastoSpinner);
+        tipoGastosViewModel = ViewModelProviders.of(this).get(TipoGastosViewModel.class);
+        tipoGastosViewModel.getAll().observe(this, new Observer<List<TipoGasto>>() {
+            @Override
+            public void onChanged(@Nullable List<TipoGasto> tipoGastos) {
+                adapterTipoGastoSpinner.clear();
+                adapterTipoGastoSpinner.addAll(tipoGastos);
+
+            }
+        });
+
+
 
 
         Intent intent = getIntent();
@@ -57,11 +92,13 @@ public class GastosAddEditActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar");
 
-           //spinnerTipoGasto.setText(intent.getStringExtra(EXTRA_TIPO_GASTO_ID));
-            //spinnerAnimal.setText(intent.getStringExtra(EXTRA_ANIMAL_ID));
             editTextData.setText(intent.getStringExtra(EXTRA_DATA));
-            editTextValor.setText(intent.getStringExtra(EXTRA_VALOR));
+            editTextValor.setText(String.valueOf(intent.getStringExtra(EXTRA_VALOR)));
             editTextDescricao.setText(intent.getStringExtra(EXTRA_DESCRICAO));
+
+            idAnimal = intent.getIntExtra(EXTRA_ANIMAL_ID, 0);
+            idTipoGasto = intent.getIntExtra(EXTRA_TIPO_GASTO_ID, 0);
+
 
         } else {
             setTitle("Cadastar");
@@ -96,8 +133,11 @@ public class GastosAddEditActivity extends AppCompatActivity {
 
     private void onSave() {
 
-        int gastoId = 1;
-        int animalId = 1;
+        Animal animal = (Animal) spinnerAnimal.getSelectedItem();
+        TipoGasto tipoGasto = (TipoGasto) spinnerTipoGasto.getSelectedItem();
+
+        int animalId = animal.getId();
+        int gastoId = tipoGasto.getId();
 
         String sData = editTextData.getText().toString();
         double valor = editTextValor.getText().toString().trim().isEmpty()? 0: Double.parseDouble(editTextValor.getText().toString());
@@ -124,6 +164,8 @@ public class GastosAddEditActivity extends AppCompatActivity {
             setResult(RESULT_OK, data);
             finish();
         }
+
+
     }
 
     private void onDelete() {

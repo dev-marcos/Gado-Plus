@@ -41,6 +41,8 @@ public class TipoGastoRepository {
         return allTipoGasto;
     }
 
+    public TipoGasto getById(int id){ return tipoGastoDao.getById(id);}
+
     private static class InsertTipoGastoAsyncTask extends AsyncTask<TipoGasto, Void, Void> {
         private TipoGastoDao tipoGastoDao;
 

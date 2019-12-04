@@ -26,8 +26,8 @@ public interface AnimalDao {
     @Update
     void update(Animal animal);
 
-    @Query("SELECT * FROM animal WHERE id = :Id")
-    Animal getById(int Id);
+    @Query("SELECT * FROM animal WHERE id = :id LIMIT 1")
+    Animal getById(int id);
 
     @Query("SELECT * from animal")
     LiveData<List<Animal>> getAll();

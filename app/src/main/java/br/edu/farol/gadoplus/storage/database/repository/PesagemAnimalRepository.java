@@ -37,6 +37,9 @@ public class PesagemAnimalRepository {
     public LiveData<List<PesagemAnimal>> getAll() {
         return allPesagemAnimals;
     }
+    public LiveData<List<PesagemAnimal>> getAll(int idPesagem) {
+        return pesagemAnimalDao.getAll(idPesagem);
+    }
 
     public PesagemAnimal getById(int id){ return pesagemAnimalDao.getById(id);}
 
