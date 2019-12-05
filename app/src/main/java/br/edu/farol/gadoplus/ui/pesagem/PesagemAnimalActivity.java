@@ -17,8 +17,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.adapter.PesagemAnimalAdapter;
+import br.edu.farol.gadoplus.model.Animal;
 import br.edu.farol.gadoplus.model.PesagemAnimal;
 import br.edu.farol.gadoplus.ui.animais.AnimaisSearchActivity;
+import br.edu.farol.gadoplus.ui.animais.AnimaisViewModel;
 
 
 public class PesagemAnimalActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class PesagemAnimalActivity extends AppCompatActivity {
     public static final String EXTRA_PESAGEM_ID="br.edu.farol.gadoplus.ui.pesagem.EXTRA_PESAGEM_ID";
 
     private PesagemAnimalViewModel pesagemAnimalViewModel;
+    private AnimaisViewModel animaisViewModel;
 
     private EditText editTextAnimal;
     private EditText editTextPeso;
@@ -48,12 +51,14 @@ public class PesagemAnimalActivity extends AppCompatActivity {
 
 
         pesagemAnimalViewModel = ViewModelProviders.of(this).get(PesagemAnimalViewModel.class);
+        animaisViewModel = ViewModelProviders.of(this).get(AnimaisViewModel.class);
 
         final RecyclerView recyclerView = findViewById(R.id.rv_pesagem_animal);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
 
         final PesagemAnimalAdapter adapter = new PesagemAnimalAdapter();
+        adapter.setApplication(getApplication());
         recyclerView.setAdapter(adapter);
 
 
@@ -83,7 +88,7 @@ public class PesagemAnimalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!editTextPeso.getText().toString().trim().isEmpty() || idAnimal > 0){
+                if (!editTextPeso.getText().toString().trim().isEmpty() && idAnimal > 0){
 
                     int id = getIntent().getIntExtra(EXTRA_PESAGEM_ID, -1);
 
@@ -129,15 +134,17 @@ public class PesagemAnimalActivity extends AppCompatActivity {
                 .show();
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK || requestCode == SEARCH_REQUEST){
+            assert data != null;
             idAnimal = data.getIntExtra(AnimaisSearchActivity.EXTRA_ID, 0);
             if (idAnimal > 0 ){
-                editTextAnimal.setText("Selecionado: " + String.valueOf(idAnimal));
+                Animal animal = animaisViewModel.getById(idAnimal);
+
+                editTextAnimal.setText(animal.getNome());
             }else{
                 editTextAnimal.setText("...");
             }

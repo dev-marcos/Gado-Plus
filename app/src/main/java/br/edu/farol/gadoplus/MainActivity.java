@@ -1,7 +1,6 @@
 package br.edu.farol.gadoplus;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -24,10 +23,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-import java.util.ArrayList;
-
-import br.edu.farol.gadoplus.ui.lotes.LotesAddEditActivity;
-import br.edu.farol.gadoplus.ui.propriedade.PropriedadeAddEditActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,14 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences settings;
     public static final String APP_PREFERENCES="gado_plus_settings";
-
-    private PieChart pieChart;
-    private PieData pieData;
-    private PieDataSet pieDataSet;
-    private ArrayList pieEntries;
-    private ArrayList PieEntryLabels;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-       /* FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            onAddNewPropriedade();
-           // onAddNewLote();
-           // onAddNewPesagem();
-
-            ///    startActivity(new Intent(MainActivity.this, AnimaisAddEditActivity.class));
-
-            }
-        });
-*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -85,17 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getEntries() {
-        pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(2f, 0));
-        pieEntries.add(new PieEntry(4f, 1));
-        pieEntries.add(new PieEntry(6f, 2));
-        pieEntries.add(new PieEntry(8f, 3));
-        pieEntries.add(new PieEntry(7f, 4));
-        pieEntries.add(new PieEntry(3f, 5));
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,18 +70,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    private void onAddNewPropriedade() {
-        startActivity(new Intent(this, PropriedadeAddEditActivity.class));
-    }
-
-    private void onAddNewLote() {
-        startActivity(new Intent(this, LotesAddEditActivity.class));
-    }
-
-    private void onAddNewPesagem() {
-        startActivity(new Intent(this, PropriedadeAddEditActivity.class));
     }
 
 

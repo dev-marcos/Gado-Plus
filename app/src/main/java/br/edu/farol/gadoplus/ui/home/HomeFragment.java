@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -24,32 +25,56 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.GastoTotalizado;
+import br.edu.farol.gadoplus.ui.gastos.GastosViewModel;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private GastosViewModel gastosViewModel;
 
     private PieChart mPieChart;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        gastosViewModel =
+                ViewModelProviders.of(this).get(GastosViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+
+
+
         mPieChart = root.findViewById(R.id.chartGastos);
+        mPieChart.setNoDataText("Sem dados para exibir o relatório!");
+        mPieChart.setNoDataTextColor(Color.rgb(44, 62, 80));
 
-        PieData mPieData = getPieData(5,100);
-        showChart(mPieChart, mPieData);
 
+
+        gastosViewModel.getGastoToalizado().observe(this, new Observer<List<GastoTotalizado>>() {
+            @Override
+            public void onChanged(@Nullable List<GastoTotalizado> gastoTotalizados) {
+                assert gastoTotalizados != null;
+                if (gastoTotalizados.size()>0){
+                    //Fazer a Magica Acontecer!
+                    PieData mPieData = getPieData(gastoTotalizados);
+                    showChart(mPieChart, mPieData);
+                }
+
+            }
+        });
 
         return root;
     }
@@ -61,62 +86,86 @@ public class HomeFragment extends Fragment {
 
 
         Description description = new Description();
-        description.setText("Descricao");
+        description.setText(""); //não uso
         description.setTextSize(18f);
         pieChart.setDescription(description);
 
         pieChart.setExtraOffsets(5, 10, 5, 5);
 
 
-        pieChart.setDrawCenterText(true);
+        pieChart.setDrawCenterText(false);
         pieChart.setDrawHoleEnabled(true);
 
         pieChart.setRotationAngle(90);
         pieChart.setRotationEnabled(true);
 
         pieChart.setUsePercentValues(true);
-        pieChart.setCenterText("Conteudo Centro");
+        //pieChart.setCenterText("Conteudo Centro");
 
 
         pieChart.setData(pieData);
-        Legend mLegend = pieChart.getLegend();
-        //mLegend.setPosition(LegendPosition.RIGHT_OF_CHART);
 
-        mLegend.setXEntrySpace(7f);
-        mLegend.setYEntrySpace(5f);
+        pieChart.setEntryLabelColor(Color.rgb(52, 73, 94));
+
+        pieChart.getLegend().setXEntrySpace(7f);
+        pieChart.getLegend().setYEntrySpace(5f);
+
         pieChart.animateXY(1500, 1500);
+
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Toast.makeText(getContext(), "R$ " + e.getY(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
     }
 
-    private PieData getPieData (int count,float range){
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("a");
-        xVals.add("b");
-        xVals.add("c");
-        xVals.add("d");
-        xVals.add("e");
+    private PieData getPieData (List<GastoTotalizado> gastoTotalizados){
 
-        ArrayList<PieEntry> yVals = new ArrayList<PieEntry>();
-        float data1 = 14;
-        float data2 = 25;
-        float data3 = 19;
-        float data4 = 38;
-        float data5 = 4;
-        yVals.add(new PieEntry(data1, 0));
-        yVals.add(new PieEntry(data2, 1));
-        yVals.add(new PieEntry(data3, 2));
-        yVals.add(new PieEntry(data4, 3));
-        yVals.add(new PieEntry(data5, 4));
+        ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieDataSet mPieDataSet = new PieDataSet(yVals, "aaaa");
+        for (GastoTotalizado gastoTotalizado: gastoTotalizados){
+            entries.add(new PieEntry((float)gastoTotalizado.getValor(), gastoTotalizado.getNome()));
+        }
+
+
+        PieDataSet mPieDataSet = new PieDataSet(entries, "");
         mPieDataSet.setSliceSpace(2f);
+        mPieDataSet.setValueTextColor(Color.rgb(44, 62, 80));
+        mPieDataSet.setValueTextSize(20f);
 
-        ArrayList<Integer>  colors =  new ArrayList<Integer>();
+        ArrayList<Integer>  colors =  new ArrayList<>();
 
         colors.add(Color.rgb(255, 73, 75));
         colors.add(Color.rgb(79, 145, 255));
         colors.add(Color.rgb(255, 152, 152));
         colors.add(Color.rgb(252, 184, 64));
         colors.add(Color.rgb(140, 201, 158));
+
+       for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+
         mPieDataSet.setColors(colors);
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -124,9 +173,10 @@ public class HomeFragment extends Fragment {
         mPieDataSet.setSelectionShift(px);
 
         PieData pieData = new PieData(mPieDataSet);
-        //xVals
+
         pieData.setValueFormatter(new PercentFormatter());
         return pieData;
     }
+
 
 }

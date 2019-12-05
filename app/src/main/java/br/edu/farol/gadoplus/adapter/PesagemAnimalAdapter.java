@@ -1,40 +1,43 @@
 package br.edu.farol.gadoplus.adapter;
 
-import android.content.Context;
+import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.Animal;
 import br.edu.farol.gadoplus.model.PesagemAnimal;
+import br.edu.farol.gadoplus.storage.database.repository.AnimalRepository;
 
 public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdapter.PesagemAnimalViewHolder> {
 
     private List<PesagemAnimal> pesagemAnimals;
     private OnItemClickListener listener;
+    private AnimalRepository animalRepository;
+    private Application application;
 
     @Override
     public PesagemAnimalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
+        animalRepository =  new AnimalRepository(application);
         return new PesagemAnimalViewHolder(itemView);
     }
-
 
     @Override
     public void onBindViewHolder(PesagemAnimalViewHolder viewHolder, int i) {
 
-        viewHolder.nome.setText(String.valueOf(pesagemAnimals.get(i).getPeso())+" Kg");
-        viewHolder.descricao.setText("Animal: " +String.valueOf(pesagemAnimals.get(i).getAnimalId()));
-        //viewHolder.hectares.setText(String.valueOf(pesagemAnimals.get(i).getHectares()) + " hec");
+        viewHolder.nome.setText(pesagemAnimals.get(i).getPeso()+" Kg");
 
+        try{
+            Animal animal = animalRepository.getById(pesagemAnimals.get(i).getAnimalId());
+            viewHolder.descricao.setText("Animal: " + animal.getNome());
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -49,6 +52,10 @@ public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdap
         notifyDataSetChanged();
     }
 
+    public void setApplication(Application application){
+        this.application = application;
+    }
+
     class PesagemAnimalViewHolder extends RecyclerView.ViewHolder {
         private TextView nome, descricao, hectares;
 
@@ -58,7 +65,6 @@ public class PesagemAnimalAdapter extends RecyclerView.Adapter<PesagemAnimalAdap
             descricao = itemView.findViewById(R.id.text_view_description);
             hectares = itemView.findViewById(R.id.text_view_priority);
 
-            //itemView.setOnClickListener((View.OnClickListener) this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

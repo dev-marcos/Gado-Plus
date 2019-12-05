@@ -1,20 +1,17 @@
 package br.edu.farol.gadoplus.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Animal;
-import br.edu.farol.gadoplus.model.Raca;
+
 
 public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder> {
 
@@ -34,7 +31,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
 
         viewHolder.nome.setText(animals.get(i).getNome());
         viewHolder.observacoes.setText(animals.get(i).getObservacoes());
-        viewHolder.dtEntrada.setText(" Data Ent.: " + animals.get(i).getDtEntrada());
+        viewHolder.dtEntrada.setText("Data Ent.: " + animals.get(i).getDtEntrada());
 
     }
 

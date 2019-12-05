@@ -1,23 +1,13 @@
 package br.edu.farol.gadoplus.adapter;
 
-import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Lote;
-import br.edu.farol.gadoplus.model.Propriedade;
-import br.edu.farol.gadoplus.ui.propriedade.PropriedadeViewModel;
 
 public class LoteAdapter extends RecyclerView.Adapter<LoteAdapter.LoteViewHolder> {
 

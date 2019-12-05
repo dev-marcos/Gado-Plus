@@ -36,7 +36,7 @@ public class PropriedadeAddEditActivity extends AppCompatActivity {
         editTextHectares = findViewById(R.id.et_propriedade_hectare);
         editTextDescricao = findViewById(R.id.et_propriedade_descricao);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         Intent intent = getIntent();
 
@@ -72,7 +72,7 @@ public class PropriedadeAddEditActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_item_edit_save:
-                onSavePropriedades();
+                onSave();
                 return true;
             case R.id.action_item_delete:
                 onDeletePropriedades();
@@ -84,19 +84,16 @@ public class PropriedadeAddEditActivity extends AppCompatActivity {
 
     }
 
-    private void onSavePropriedades() {
+    private void onSave() {
         String nome = editTextNome.getText().toString();
-        double hectare =0;
 
-        if (!editTextHectares.getText().toString().trim().isEmpty())
-            hectare = Double.parseDouble(editTextHectares.getText().toString());
+        double hectare = editTextHectares.getText().toString().trim().isEmpty()? 0: Double.parseDouble(editTextHectares.getText().toString());
 
         String descricao = editTextDescricao.getText().toString();
 
 
-        if (nome.trim().isEmpty() || descricao.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        }else{
+        if (!nome.trim().isEmpty() && !descricao.trim().isEmpty()) {
+
             Intent data = new Intent();
             data.putExtra(EXTRA_NOME, nome);
             data.putExtra(EXTRA_HECTARES, hectare);
@@ -109,6 +106,8 @@ public class PropriedadeAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
+        }else{
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }
     }
 

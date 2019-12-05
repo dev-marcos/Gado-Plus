@@ -2,7 +2,6 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
@@ -22,12 +21,14 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Nome">
+            android:hint="@string/nome">
+
             <EditText
                 android:id="@+id/et_animais_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="" />
+                android:autofillHints=""
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Lote:"
+                android:text="@string/lote1"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_animais_lote"
-                app:layout_constraintTop_toTopOf="parent"></Spinner>
+                app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sexo:"
+                android:text="@string/sexo"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,20 +91,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_animais_sexo"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp">
 
                 <RadioButton
                     android:id="@+id/rb_animais_macho"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Macho" />
+                    android:text="@string/macho" />
 
                 <RadioButton
                     android:id="@+id/rb_animais_femea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/input_layout_margin"
-                    android:text="Fêmea" />
+                    android:text="@string/f_mea"
+                    android:layout_marginStart="@dimen/input_layout_margin" />
             </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -115,7 +118,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Data de Entrada">
+            android:hint="@string/data_de_entrada">
             <EditText
                 android:id="@+id/et_animais_dt_entrada"
                 android:layout_width="match_parent"
@@ -131,7 +134,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Data Primeira Pesagem">
+            android:hint="@string/data_primeira_pesagem">
 
             <EditText
                 android:id="@+id/et_animais_dt_primeira_pesagem"
@@ -148,7 +151,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Primeiro Peso">
+            android:hint="@string/primeiro_peso">
             <EditText
                 android:id="@+id/et_animais_primeiro_peso"
                 android:layout_width="match_parent"
@@ -169,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Raça:"
+                android:text="@string/raca"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +199,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Preço Compra">
+            android:hint="@string/preco_compra">
             <EditText
                 android:id="@+id/et_animais_preco_compra"
                 android:layout_width="match_parent"
@@ -212,7 +215,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Data de Desmame">
+            android:hint="@string/data_de_desmame">
             <EditText
                 android:id="@+id/et_animais_dt_nascimento"
                 android:layout_width="match_parent"
@@ -228,7 +231,7 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Data de Nascimento">
+            android:hint="@string/data_de_nascimento">
             <EditText
                 android:id="@+id/et_animais_dt_desmame"
                 android:layout_width="match_parent"
@@ -245,14 +248,14 @@
             android:layout_marginStart="@dimen/input_layout_margin"
             android:layout_marginTop="@dimen/input_layout_margin"
             android:layout_marginEnd="@dimen/input_layout_margin"
-            android:hint="Observações">
+            android:hint="@string/observacoes">
 
             <EditText
                 android:id="@+id/et_animais_observacoes"
                 android:lines="8"
                 android:minLines="6"
                 android:maxLines="10"
-                android:gravity="top|left"
+                android:gravity="start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"

@@ -79,35 +79,34 @@ public abstract class AppDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private PropriedadeDao propriedadeDao;
+
         private RacaDao racaDao;
-        private AnimalDao animalDao;
+        private TipoGastoDao tipoGasto;
 
         private PopulateDbAsyncTask(AppDatabase db) {
-            propriedadeDao = db.propriedadeDao();
-            animalDao = db.animalDao();
             racaDao = db.racaDao();
+            tipoGasto = db.tipoGastoDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            propriedadeDao.insert(new Propriedade("Title 1", 12,"Description 1"));
-            propriedadeDao.insert(new Propriedade("Title 2", 23,"Description 2"));
-            propriedadeDao.insert(new Propriedade("Title 3", 45,"Description 3"));
 
-            Animal animal = new Animal();
-            animal.setNome("Boi Teste");
-            animal.setSexo("Macho");
-            animal.setDtEntrada("01/05/2019");
-            animal.setDtPrimeiraPesagem("01/05/2019");
-            animal.setPrimeiroPeso(78);
-            animal.setRacaId(1);
-            animal.setPrecoCompra(90);
-            animal.setDtNascimento("01/05/2019");
-            animal.setDtDesmame("01/05/2019");
-            animal.setObservacoes("Nenhuma Observação a declarar");
+            racaDao.insert(new Raca("Nelore"));
+            racaDao.insert(new Raca("Angus"));
+            racaDao.insert(new Raca("Brahman"));
+            racaDao.insert(new Raca("Brangus"));
+            racaDao.insert(new Raca("Tabapuã"));
+            racaDao.insert(new Raca("Senepol"));
+            racaDao.insert(new Raca("Hereford"));
 
-            animalDao.insert(animal);
+            tipoGasto.insert(new TipoGasto("Aquisição de animais"));
+            tipoGasto.insert(new TipoGasto("Alimentação"));
+            tipoGasto.insert(new TipoGasto("Mão-de-obra"));
+            tipoGasto.insert(new TipoGasto("Sanidade"));
+            tipoGasto.insert(new TipoGasto("Impostos"));
+            tipoGasto.insert(new TipoGasto("Depreciação"));
+            tipoGasto.insert(new TipoGasto("Despesas diversas"));
+
 
             return null;
         }

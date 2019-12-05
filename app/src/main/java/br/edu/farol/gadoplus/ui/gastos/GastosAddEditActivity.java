@@ -5,22 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Animal;
 import br.edu.farol.gadoplus.model.TipoGasto;
 import br.edu.farol.gadoplus.ui.animais.AnimaisViewModel;
+import br.edu.farol.gadoplus.util.Util;
 
 public class GastosAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_ID="br.edu.farol.gadoplus.ui.gastos.EXTRA_ID";
@@ -30,6 +36,7 @@ public class GastosAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_VALOR="br.edu.farol.gadoplus.ui.gastos.EXTRA_VALOR";
     public static final String EXTRA_DESCRICAO="br.edu.farol.gadoplus.ui.gastos.EXTRA_DESCRICAO";
 
+    DatePickerDialog picker;
 
     private Spinner  spinnerTipoGasto;
     private Spinner  spinnerAnimal;
@@ -47,15 +54,37 @@ public class GastosAddEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gastos_add_edit);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         editTextData = findViewById(R.id.et_gastos_data);
         editTextValor = findViewById(R.id.et_gastos_valor);
         editTextDescricao = findViewById(R.id.et_gastos_descricao);
 
 
+        editTextData.setInputType(InputType.TYPE_NULL);
+        editTextData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(GastosAddEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                //editTextData.setText( dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editTextData.setText(getString(R.string.format_data,dayOfMonth, (monthOfYear+1),year));
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+
         spinnerAnimal = findViewById(R.id.spinner_gastos_animal);
-        final ArrayAdapter<Animal> adapterAnimalSpinner = new ArrayAdapter<Animal>(this,
+        final ArrayAdapter<Animal> adapterAnimalSpinner = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         adapterAnimalSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAnimal.setAdapter(adapterAnimalSpinner);
@@ -64,13 +93,14 @@ public class GastosAddEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Animal> animals) {
                 adapterAnimalSpinner.clear();
+                assert animals != null;
                 adapterAnimalSpinner.addAll(animals);
 
             }
         });
 
         spinnerTipoGasto = findViewById(R.id.spinner_gastos_tipo);
-        final ArrayAdapter<TipoGasto> adapterTipoGastoSpinner = new ArrayAdapter<TipoGasto>(this,
+        final ArrayAdapter<TipoGasto> adapterTipoGastoSpinner = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         adapterTipoGastoSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipoGasto.setAdapter(adapterTipoGastoSpinner);
@@ -79,6 +109,7 @@ public class GastosAddEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<TipoGasto> tipoGastos) {
                 adapterTipoGastoSpinner.clear();
+                assert tipoGastos != null;
                 adapterTipoGastoSpinner.addAll(tipoGastos);
 
             }
@@ -93,7 +124,7 @@ public class GastosAddEditActivity extends AppCompatActivity {
             setTitle("Editar");
 
             editTextData.setText(intent.getStringExtra(EXTRA_DATA));
-            editTextValor.setText(String.valueOf(intent.getStringExtra(EXTRA_VALOR)));
+            editTextValor.setText(String.valueOf(intent.getDoubleExtra(EXTRA_VALOR, 0)));
             editTextDescricao.setText(intent.getStringExtra(EXTRA_DESCRICAO));
 
             idAnimal = intent.getIntExtra(EXTRA_ANIMAL_ID, 0);
@@ -136,18 +167,15 @@ public class GastosAddEditActivity extends AppCompatActivity {
         Animal animal = (Animal) spinnerAnimal.getSelectedItem();
         TipoGasto tipoGasto = (TipoGasto) spinnerTipoGasto.getSelectedItem();
 
-        int animalId = animal.getId();
-        int gastoId = tipoGasto.getId();
+        int animalId = animal!=null? animal.getId() : 0;
+        int gastoId = tipoGasto!=null? tipoGasto.getId() : 0;
 
         String sData = editTextData.getText().toString();
         double valor = editTextValor.getText().toString().trim().isEmpty()? 0: Double.parseDouble(editTextValor.getText().toString());
         String descricao = editTextDescricao.getText().toString();
 
 
-        if (!(gastoId > 0) || sData.trim().isEmpty()|| !(valor > 0) || descricao.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        }else{
-
+        if (gastoId > 0 && valor > 0 && Util.dateValidation(sData) && !descricao.trim().isEmpty()) {
             Intent data = new Intent();
 
             data.putExtra(EXTRA_TIPO_GASTO_ID, gastoId);
@@ -163,6 +191,8 @@ public class GastosAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
+        }else{
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }
 
 

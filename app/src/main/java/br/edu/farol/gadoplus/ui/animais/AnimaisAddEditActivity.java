@@ -4,25 +4,36 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Calendar;
 import java.util.List;
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.model.Lote;
 import br.edu.farol.gadoplus.model.Raca;
+import br.edu.farol.gadoplus.ui.gastos.GastosAddEditActivity;
 import br.edu.farol.gadoplus.ui.lotes.LotesViewModel;
 import br.edu.farol.gadoplus.ui.raca.RacaViewModel;
-
+import br.edu.farol.gadoplus.util.Util;
 
 
 public class AnimaisAddEditActivity extends AppCompatActivity {
@@ -39,6 +50,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     public static final String EXTRA_DT_DESMAME="br.edu.farol.gadoplus.ui.propriedades.EXTRA_DT_DESMAME";
     public static final String EXTRA_OBSERVACOES="br.edu.farol.gadoplus.ui.propriedades.EXTRA_OBSERVACOES";
 
+    DatePickerDialog picker;
 
     private EditText    editTextNome;
     private Spinner     spinnerLote;
@@ -53,8 +65,10 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     private EditText    editTextDtDesmame;
     private EditText    editTextObservacoes;
 
-    int idAnimal = 0;
-    int idTipoGasto = 0;
+    private TextInputLayout textInputDtEntrada;
+
+    int idLote = 0;
+    int idRaca = 0;
 
     private LotesViewModel lotesViewModel;
     private RacaViewModel racaViewModel;
@@ -64,7 +78,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animais_add_edit);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         editTextNome              = findViewById(R.id.et_animais_nome);
         radioButtonMacho          = findViewById(R.id.rb_animais_macho);
@@ -78,9 +92,105 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         editTextObservacoes       = findViewById(R.id.et_animais_observacoes);
 
 
+        textInputDtEntrada       = findViewById(R.id.tv_animais_dt_entrada);
+
+
+
+        editTextDtEntrada.setInputType(InputType.TYPE_NULL);
+        editTextDtEntrada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(AnimaisAddEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                //editTextDtEntrada.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editTextDtEntrada.setText(getString(R.string.format_data,dayOfMonth, (monthOfYear+1),year));
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        editTextDtPrimeiraPesagem.setInputType(InputType.TYPE_NULL);
+        editTextDtPrimeiraPesagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(AnimaisAddEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                //editTextDtPrimeiraPesagem.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editTextDtPrimeiraPesagem.setText(getString(R.string.format_data,dayOfMonth, (monthOfYear+1),year));
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        editTextDtNascimento.setInputType(InputType.TYPE_NULL);
+        editTextDtNascimento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(AnimaisAddEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                //editTextDtNascimento.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editTextDtNascimento.setText(getString(R.string.format_data,dayOfMonth, (monthOfYear+1),year));
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+        editTextDtDesmame.setInputType(InputType.TYPE_NULL);
+
+        editTextDtDesmame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeKeyboard();
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(AnimaisAddEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                //editTextDtDesmame.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                editTextDtDesmame.setText(getString(R.string.format_data,dayOfMonth, (monthOfYear+1),year));
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
+
+
+
+
 
         spinnerLote = findViewById(R.id.spinner_animais_lote);
-        final ArrayAdapter<Lote> adapterLoteSpinner = new ArrayAdapter<Lote>(this,
+        final ArrayAdapter<Lote> adapterLoteSpinner = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         adapterLoteSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLote.setAdapter(adapterLoteSpinner);
@@ -89,13 +199,14 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Lote> lotes) {
                 adapterLoteSpinner.clear();
+                assert lotes != null;
                 adapterLoteSpinner.addAll(lotes);
 
             }
         });
 
         spinnerRaca = findViewById(R.id.spinner_animais_raca);
-        final ArrayAdapter<Raca> adapterRacaSpinner = new ArrayAdapter<Raca>(this,
+        final ArrayAdapter<Raca> adapterRacaSpinner = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
         adapterRacaSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRaca.setAdapter(adapterRacaSpinner);
@@ -104,6 +215,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Raca> racas) {
                 adapterRacaSpinner.clear();
+                assert racas != null;
                 adapterRacaSpinner.addAll(racas);
 
             }
@@ -127,6 +239,7 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
             String sexo = intent.getStringExtra(EXTRA_SEXO);
 
+            assert sexo != null;
             if (sexo.contains("Macho")){
                 radioButtonMacho.setChecked(true);
             }else{
@@ -135,6 +248,8 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
             //spinnerLote
             //spinnerRaca
+            idLote= intent.getIntExtra(EXTRA_LOTE_ID, 0);
+            idRaca = intent.getIntExtra(EXTRA_RACA_ID, 0);
 
 
         } else {
@@ -177,13 +292,13 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         Lote lote = (Lote) spinnerLote.getSelectedItem();
         Raca raca = (Raca) spinnerRaca.getSelectedItem();
 
-        int loteId = lote.getId();
-        int racaId = raca.getId();
+        int loteId = lote!=null? lote.getId(): 0;
+        int racaId = raca!=null? raca.getId(): 0;
 
 
 
         String nome = editTextNome.getText().toString();
-        String sexo = radioButtonFemea.isChecked() ? "Macho": "Fêmea";
+        String sexo = radioButtonMacho.isChecked() ? "Macho": "Fêmea";
         String dtEntrada = editTextDtEntrada.getText().toString();
         String dtPrimeiraPesagem =  editTextDtPrimeiraPesagem.getText().toString();
         double primeiroPeso =  editTextPrimeiroPeso.getText().toString().trim().isEmpty()? 0 : Double.parseDouble(editTextPrimeiroPeso.getText().toString());
@@ -193,10 +308,11 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
         String observacoes =  editTextObservacoes.getText().toString();
 
 
-        if (nome.trim().isEmpty() || sexo.trim().isEmpty() || dtEntrada.trim().isEmpty() ||
-                dtPrimeiraPesagem.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        }else{
+
+
+        if (!nome.trim().isEmpty() && !sexo.trim().isEmpty() && loteId > 0 && racaId > 0 &&
+                Util.dateValidation(dtEntrada) && Util.dateValidation(dtPrimeiraPesagem) &&
+                Util.dateValidation(dtNascimento) && Util.dateValidation(dtDesmame)){
 
             Intent data = new Intent();
 
@@ -219,6 +335,8 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
+        }else{
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,6 +348,15 @@ public class AnimaisAddEditActivity extends AppCompatActivity {
             data.putExtra(EXTRA_ID, id);
             setResult(AnimaisFragment.DELETE_REQUEST, data);
             finish();
+        }
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

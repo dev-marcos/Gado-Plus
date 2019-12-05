@@ -1,11 +1,20 @@
 package br.edu.farol.gadoplus.ui.gastos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +33,7 @@ import java.util.List;
 import br.edu.farol.gadoplus.R;
 import br.edu.farol.gadoplus.adapter.GastoAdapter;
 import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.TipoGasto;
 
 public class GastosFragment extends Fragment {
     public static final int ADD_REQUEST = 1;
@@ -32,11 +42,14 @@ public class GastosFragment extends Fragment {
 
     private GastosViewModel gastosViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    private String m_Text = "";
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         gastosViewModel = ViewModelProviders.of(this).get(GastosViewModel.class);
 
         View root = inflater.inflate(R.layout.fragment_gastos, container, false);
+
+        setHasOptionsMenu(true);
 
         final RecyclerView recyclerView = root.findViewById(R.id.rv_gastos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -51,6 +64,7 @@ public class GastosFragment extends Fragment {
         gastosViewModel.getAll().observe(this, new Observer<List<Gasto>>() {
             @Override
             public void onChanged(@Nullable List<Gasto> gastos) {
+                assert gastos != null;
                 if (gastos.size()>0){
                     tvVazio.setVisibility(View.GONE);
                     adapter.setGasto(gastos);
@@ -135,5 +149,76 @@ public class GastosFragment extends Fragment {
         }
 
     }
+
+    public void dialogNewTipoGasto(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        final EditText input = new EditText(getContext());
+
+        input.setSingleLine();
+        FrameLayout container = new FrameLayout(getActivity());
+        FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+        input.setLayoutParams(params);
+        container.addView(input);
+
+        builder.setTitle("Cadastrar Tipo de Gasto");
+        builder.setMessage("Qual o nome do tipo de gasto que vocêdeseja cadastrar?");
+        builder.setView(container);
+
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (input.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getContext(),"Escreva alguma Descrição", Toast.LENGTH_LONG).show();
+                    dialogNewTipoGasto();
+                }else{
+                    newTipoGasto(input.getText().toString().trim());
+                }
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void newTipoGasto(String nome){
+        TipoGastosViewModel tipoGastosViewModel;
+        tipoGastosViewModel = ViewModelProviders.of(this).get(TipoGastosViewModel.class);
+
+        TipoGasto tipoGasto = new TipoGasto(nome);
+        tipoGastosViewModel.insert(tipoGasto);
+        Toast.makeText(getContext(), "Cadastrado com Sucesso!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem item = menu.findItem(R.id.action_new_tipo_gasto);
+        item.setVisible(true);
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_new_tipo_gasto:
+                dialogNewTipoGasto();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }

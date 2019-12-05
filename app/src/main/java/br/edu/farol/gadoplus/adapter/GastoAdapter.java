@@ -1,16 +1,13 @@
 package br.edu.farol.gadoplus.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
@@ -33,7 +30,7 @@ public class GastoAdapter extends RecyclerView.Adapter<GastoAdapter.GastoViewHol
     @Override
     public void onBindViewHolder(GastoViewHolder viewHolder, int i) {
 
-        viewHolder.valor.setText("R$ " + String.valueOf(df.format(gastos.get(i).getValor())));
+        viewHolder.valor.setText("R$ " + df.format(gastos.get(i).getValor()));
         viewHolder.descricao.setText(gastos.get(i).getDescricao());
         viewHolder.data.setText(gastos.get(i).getData());
 

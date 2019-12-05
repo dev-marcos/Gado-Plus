@@ -10,7 +10,7 @@ public class Util {
         Date date = null;
         try {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            date = (java.util.Date)formatter.parse(sDate);
+            date = formatter.parse(sDate);
         } catch (ParseException e) {
             //trabalhar depois
         }
@@ -22,5 +22,16 @@ public class Util {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
 
+    }
+
+    public static boolean dateValidation(String data) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            sdf.parse(data);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
     }
 }

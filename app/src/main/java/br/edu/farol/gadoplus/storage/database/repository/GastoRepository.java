@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.GastoTotalizado;
 import br.edu.farol.gadoplus.storage.database.AppDatabase;
 import br.edu.farol.gadoplus.storage.database.dao.GastoDao;
 
@@ -39,6 +40,10 @@ public class GastoRepository {
 
     public LiveData<List<Gasto>> getAll() {
         return allGastos;
+    }
+
+    public LiveData<List<GastoTotalizado>> getGastoToalizado() {
+        return gastoDao.getGastoToalizado();
     }
 
     public Gasto getById(int id){ return gastoDao.getById(id);}

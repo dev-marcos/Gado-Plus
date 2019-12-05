@@ -1,6 +1,9 @@
 package br.edu.farol.gadoplus.ui.lotes;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.farol.gadoplus.R;
+import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.ui.animais.AnimaisFragment;
+import br.edu.farol.gadoplus.ui.propriedade.PropriedadeViewModel;
 
 
 public class LotesAddEditActivity extends AppCompatActivity {
@@ -30,15 +35,35 @@ public class LotesAddEditActivity extends AppCompatActivity {
     private Spinner  spinnerPropriedade;
     private EditText editTextDescricao;
 
+    int idPropriedade = 0;
+
+    private PropriedadeViewModel propriedadeViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lotes_add_edit);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         editTextNome       = findViewById(R.id.et_lote_nome);
-        spinnerPropriedade = findViewById(R.id.spinner_lote_propriedade);
         editTextDescricao  = findViewById(R.id.et_lote_descricao);
+
+        spinnerPropriedade = findViewById(R.id.spinner_lote_propriedade);
+        final ArrayAdapter<Propriedade> adapterPropriedadeSpinner = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
+        adapterPropriedadeSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPropriedade.setAdapter(adapterPropriedadeSpinner);
+        propriedadeViewModel = ViewModelProviders.of(this).get(PropriedadeViewModel.class);
+        propriedadeViewModel.getAll().observe(this, new Observer<List<Propriedade>>() {
+            @Override
+            public void onChanged(@Nullable List<Propriedade> propriedades) {
+                adapterPropriedadeSpinner.clear();
+                assert propriedades != null;
+                adapterPropriedadeSpinner.addAll(propriedades);
+
+            }
+        });
+
 
 
         Intent intent = getIntent();
@@ -46,9 +71,8 @@ public class LotesAddEditActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Editar");
             editTextNome.setText(intent.getStringExtra(EXTRA_NOME));
-           // spinnerPropriedade.setText(intent.getStringExtra(EXTRA_PROPRIEDADE_ID));
             editTextDescricao.setText(intent.getStringExtra(EXTRA_DESCRICAO));
-
+            idPropriedade = intent.getIntExtra(EXTRA_PROPRIEDADE_ID, 0);
         } else {
             setTitle("Cadastar");
         }
@@ -84,16 +108,14 @@ public class LotesAddEditActivity extends AppCompatActivity {
 
     private void onSave() {
 
-        int propriedadeId = 1;
+        Propriedade propriedade = (Propriedade) spinnerPropriedade.getSelectedItem();
+        int propriedadeId = propriedade!=null ? propriedade.getId() : 0;
 
         String nome = editTextNome.getText().toString();
         String descricao =  editTextDescricao.getText().toString();
 
 
-        if (nome.trim().isEmpty() || descricao.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
-        }else{
-
+        if (!nome.trim().isEmpty() && !descricao.trim().isEmpty()) {
             Intent data = new Intent();
 
             data.putExtra(EXTRA_NOME, nome);
@@ -107,6 +129,8 @@ public class LotesAddEditActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
             finish();
+        }else{
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos!", Toast.LENGTH_SHORT).show();
         }
     }
 

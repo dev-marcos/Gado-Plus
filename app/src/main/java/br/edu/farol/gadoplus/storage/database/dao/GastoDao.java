@@ -11,6 +11,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.GastoTotalizado;
 
 @Dao
 public interface GastoDao {
@@ -31,5 +32,11 @@ public interface GastoDao {
 
     @Query("SELECT * from gasto")
     LiveData<List<Gasto>> getAll();
+
+    @Query("SELECT tipo_gasto.nome AS nome, SUM(gasto.valor) AS valor\n" +
+            "FROM gasto \n" +
+            "INNER JOIN tipo_gasto on tipo_gasto.id = gasto.tipo_gasto_id\n" +
+            "GROUP BY tipo_gasto.id")
+    LiveData<List<GastoTotalizado>> getGastoToalizado();
 
 }

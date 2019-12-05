@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import br.edu.farol.gadoplus.model.Gasto;
+import br.edu.farol.gadoplus.model.GastoTotalizado;
 import br.edu.farol.gadoplus.model.Propriedade;
 import br.edu.farol.gadoplus.storage.database.repository.GastoRepository;
 import br.edu.farol.gadoplus.storage.database.repository.PropriedadeRepository;
@@ -47,5 +48,9 @@ public class GastosViewModel extends AndroidViewModel {
 
     public LiveData<List<Gasto>> getAll() {
         return allGastos;
+    }
+
+    public LiveData<List<GastoTotalizado>> getGastoToalizado() {
+        return repository.getGastoToalizado();
     }
 }
